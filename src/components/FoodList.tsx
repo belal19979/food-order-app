@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { FoodCard } from "@/components";
-import { foodItems } from "@/data/fakeData";
+import { FoodItem } from "@/types/food";
 
-export function FoodList() {
+export function FoodList({ foodItems }: { foodItems: FoodItem[] }) {
   return (
     <Box display="flex" justifyContent="flex-start" gap={3} flexWrap="wrap">
       {foodItems.map((item) => {
-        return <FoodCard key={item.name} {...item} />;
+        return <FoodCard key={item.id} {...item} />;
       })}
     </Box>
   );
