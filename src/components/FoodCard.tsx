@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Box,
@@ -13,10 +14,10 @@ import {
 } from "@mui/material";
 import { FoodItem } from "@/types/food";
 
-export function FoodCard({ name, description, price, image }: FoodItem) {
+export function FoodCard({ id, name, description, price, image }: FoodItem) {
   return (
     <Card sx={{ width: 320 }}>
-      <CardActionArea>
+      <CardActionArea component={Link} href={`/menu/${id}`}>
         <Box sx={{ position: "relative", width: "100%", height: 140 }}>
           <Image
             src={image}

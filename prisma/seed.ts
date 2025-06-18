@@ -1,7 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { PrismaClient } = require("../src/generated/prisma");
-
-const prisma = new PrismaClient();
+const { prisma } = require("../src/lib/prisma");
 
 const foodItems = [
   {
