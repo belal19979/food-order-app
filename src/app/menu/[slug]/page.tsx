@@ -1,5 +1,4 @@
 import { getFoodItemById } from "@/lib/api";
-
 import { MenuItemDetail } from "@/components";
 
 export default async function page({ params }: { params: { slug: string } }) {
