@@ -8,6 +8,7 @@ const GET_FOOD_ITEMS = gql`
       id
       name
       price
+      slug
       description
       image
     }

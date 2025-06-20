@@ -4,6 +4,7 @@ export const foodTypeDefs = gql`
   type FoodItem {
     id: String!
     name: String!
+    slug: String!
     description: String!
     price: Float!
     category: String!

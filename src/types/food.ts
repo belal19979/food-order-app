@@ -1,6 +1,7 @@
 export type FoodItem = {
   id: string;
   name: string;
+  slug: string;
   description: string;
   price: number;
   category: string;

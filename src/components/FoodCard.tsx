@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 import { FoodItem } from "@/types/food";
 
-export function FoodCard({ id, name, description, price, image }: FoodItem) {
+export function FoodCard({ name, slug, description, price, image }: FoodItem) {
   return (
     <Card sx={{ width: 320 }}>
-      <CardActionArea component={Link} href={`/menu/${id}`}>
+      <CardActionArea component={Link} href={`/menu/${slug}`}>
         <Box sx={{ position: "relative", width: "100%", height: 140 }}>
           <Image
             src={image}

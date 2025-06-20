@@ -17,6 +17,7 @@ datasource db {
 model FoodItem {
   id          String   @id @default(cuid())
   name        String
+  slug        String  @unique
   description String
   price       Float
   category    String
