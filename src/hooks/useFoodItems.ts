@@ -11,6 +11,7 @@ const GET_FOOD_ITEMS = gql`
       slug
       description
       image
+      category
     }
   }
 `;

@@ -10,7 +10,7 @@ import { FoodCardActions } from "./FoodCardActions";
 
 export function FoodCard({ name, slug, description, price, image }: FoodItem) {
   return (
-    <Card sx={{ width: 320 }}>
+    <Card sx={{ width: "100%", maxWidth: 320 }}>
       <CardActionArea component={Link} href={`/menu/${slug}`}>
         <FoodImage src={image} alt={name} />
         <FoodCardContent name={name} description={description} />

@@ -1,13 +1,15 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { FoodCard } from "@/components";
 import { FoodItem } from "@/types/food";
 
 export function FoodList({ foodItems }: { foodItems: FoodItem[] }) {
   return (
-    <Box display="flex" justifyContent="flex-start" gap={3} flexWrap="wrap">
-      {foodItems.map((item) => {
-        return <FoodCard key={item.id} {...item} />;
-      })}
-    </Box>
+    <Grid container component="section" sx={{ width: "100%" }} spacing={3}>
+      {foodItems.map((item) => (
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
+          <FoodCard {...item} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }

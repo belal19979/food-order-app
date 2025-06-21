@@ -8,5 +8,5 @@ export type FoodItem = {
   image: string;
 };
 export type GetFoodItemsResponse = {
-  foodItems: [FoodItem];
+  foodItems: FoodItem[];
 };
