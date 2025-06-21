@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { prisma } = require("../src/lib/prisma");
-
+import { prisma } from "@/lib/prisma";
+import { generateUniqueSlug } from "@/utils/slugify";
 const foodItems = [
   {
     name: "Classic Burger",
@@ -87,9 +86,24 @@ const foodItems = [
 ];
 
 async function main() {
-  await prisma.foodItem.createMany({
-    data: foodItems,
-  });
+  //  Preload all existing slugs so we can avoid collisions even
+  const existing = await prisma.foodItem.findMany({ select: { slug: true } });
+  const takenSlugs = existing.map((r) => r.slug);
+
+  for (const item of foodItems) {
+    const slug = await generateUniqueSlug(item.name, takenSlugs);
+    takenSlugs.push(slug);
+
+    await prisma.foodItem.upsert({
+      where: { slug },
+      update: {}, // do nothing if it exists
+      create: {
+        ...item,
+        slug,
+      },
+    });
+  }
+
   console.log("✅ Seed complete!");
 }
 
