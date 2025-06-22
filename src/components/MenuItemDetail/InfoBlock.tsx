@@ -1,3 +1,4 @@
+"use client";
 import { FoodItem } from "@/types/food";
 import { Box, Stack, Typography } from "@mui/material";
 import { ActionButtons } from "./ActionButtons";

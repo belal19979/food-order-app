@@ -1,3 +1,4 @@
+"use client";
 import { CardContent, Typography } from "@mui/material";
 
 export const FoodCardContent = ({

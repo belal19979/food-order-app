@@ -1,6 +1,9 @@
+"use client";
 import { Box, Button, CardActions, Typography } from "@mui/material";
+import { useCart } from "@/context";
 
 export const FoodCardActions = ({ price }: { price: number }) => {
+  const { cart, addToCart, updateQuantity } = useCart();
   return (
     <CardActions>
       <Box
@@ -13,6 +16,7 @@ export const FoodCardActions = ({ price }: { price: number }) => {
           ${price}
         </Typography>
         <Button
+          onClick={() => addToCart("slug")}
           size="small"
           sx={{
             border: "1px solid",
@@ -22,7 +26,7 @@ export const FoodCardActions = ({ price }: { price: number }) => {
             },
           }}
         >
-          Add
+          Add to cart
         </Button>
       </Box>
     </CardActions>

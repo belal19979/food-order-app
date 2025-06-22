@@ -1,3 +1,4 @@
+"use client";
 import { Breadcrumbs, Link, Typography } from "@mui/material";
 import NextLink from "next/link";
 

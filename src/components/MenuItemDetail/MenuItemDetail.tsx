@@ -1,5 +1,4 @@
 "use client";
-
 import { FoodItem } from "@/types/food";
 import { Box } from "@mui/material";
 import { ImageBlock } from "./ImageBlock";
