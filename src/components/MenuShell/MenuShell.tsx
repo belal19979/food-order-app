@@ -1,9 +1,13 @@
 "use client";
-
-import { FoodList, FilterBar } from "@/components";
-import { useDebounce } from "@/hooks";
 import { Container } from "@mui/material";
 import { useMemo, useState } from "react";
+
+import { FilterBar } from "./FilterBar";
+import { filterItems } from "./filterItems";
+import { renderMenuContent } from "./renderMenuContent";
+
+import { useDebounce } from "@/hooks";
+
 import { FoodItem } from "@/types/food";
 
 export function MenuShell({
@@ -17,12 +21,10 @@ export function MenuShell({
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
 
-  const filteredItems = useMemo(() => {
-    const q = debouncedSearch.trim().toLowerCase();
-    return foodItems
-      .filter((item) => category === "" || item.category === category)
-      .filter((item) => !q || item.name.toLowerCase().includes(q));
-  }, [foodItems, debouncedSearch, category]);
+  const filteredItems = useMemo(
+    () => filterItems(foodItems, category, debouncedSearch),
+    [foodItems, debouncedSearch, category]
+  );
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 2 }}>
@@ -34,7 +36,7 @@ export function MenuShell({
         setSearch={setSearch}
       />
 
-      <FoodList foodItems={filteredItems} />
+      {renderMenuContent(foodItems, filteredItems)}
     </Container>
   );
 }
