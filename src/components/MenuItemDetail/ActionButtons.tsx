@@ -1,22 +1,24 @@
 "use client";
-import { Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { Button, ButtonGroup } from "@mui/material";
 
-export function ActionButtons() {
-  const [qty, setQty] = useState(1);
-  const saveQty = () => {
-    console.log("saved value is ", { qty });
-  };
+import { useCartQuantity } from "@/hooks";
+
+export function ActionButtons({ slug }: { slug: string }) {
+  const { quantity, changeQuantity } = useCartQuantity(slug);
+
   return (
-    <>
-      <Button>
-        <Button onClick={() => setQty((prev) => prev - 1)}>-</Button>
-        <Typography>{qty}</Typography>
-        <Button onClick={() => setQty((prev) => prev + 1)}>+</Button>
+    <ButtonGroup variant="outlined">
+      <Button
+        onClick={() => changeQuantity(-1)}
+        disabled={quantity === 0}
+        aria-label="Remove one item"
+      >
+        -
       </Button>
-      <Button onClick={saveQty} variant="contained" sx={{ ml: "auto" }}>
-        Add to cart
+      <Button disabled>{quantity}</Button>
+      <Button onClick={() => changeQuantity(1)} aria-label="add one item">
+        +
       </Button>
-    </>
+    </ButtonGroup>
   );
 }

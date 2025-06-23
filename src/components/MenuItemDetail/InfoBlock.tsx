@@ -28,7 +28,7 @@ export function InfoBlock({ item }: { item: FoodItem }) {
       </Typography>
 
       <Box display="flex" mt="auto" pt={3}>
-        <ActionButtons />
+        <ActionButtons slug={item.slug} />
       </Box>
     </Stack>
   );

@@ -12,9 +12,9 @@ export function FoodCard({ name, slug, description, price, image }: FoodItem) {
     <Card sx={{ width: "100%", maxWidth: 320 }}>
       <CardActionArea component={Link} href={`/menu/${slug}`}>
         <FoodImage src={image} alt={name} />
-        <FoodCardContent name={name} description={description} />
-        <FoodCardActions price={price} />
       </CardActionArea>
+      <FoodCardContent name={name} description={description} />
+      <FoodCardActions price={price} slug={slug} />
     </Card>
   );
 }

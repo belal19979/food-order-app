@@ -1,11 +1,19 @@
 "use client";
 
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { useContext } from "react";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import { useCart } from "@/context";
+import { useEffect, useState } from "react";
 
 export function Header() {
   const { cart } = useCart();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, [mounted]);
+  if (!mounted) return null;
+
+  const reducedNumber = cart.reduce((acc, curr) => acc + curr.quantity, 0);
 
   return (
     <AppBar position="static" color="primary">
@@ -14,7 +22,7 @@ export function Header() {
           🍔 Food Order App
         </Typography>
         <Typography variant="h6" component="div">
-          cart number 5
+          cart number {reducedNumber}
         </Typography>
       </Toolbar>
     </AppBar>

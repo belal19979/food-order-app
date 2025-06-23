@@ -12,7 +12,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <CssBaseline />
       <CartProvider>
         <Header />
-
         <Container maxWidth="lg" sx={{ mt: 4 }}>
           {children}
         </Container>
