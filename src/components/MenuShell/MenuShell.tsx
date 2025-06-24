@@ -2,7 +2,7 @@
 import { Container } from "@mui/material";
 import { useMemo, useState } from "react";
 
-import { FilterBar } from "./FilterBar";
+import { FilterBar } from "./FilterBar/FilterBar";
 import { filterItems } from "./filterItems";
 import { renderMenuContent } from "./renderMenuContent";
 
