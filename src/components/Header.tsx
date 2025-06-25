@@ -7,10 +7,12 @@ import {
   Skeleton,
   Badge,
   Container,
+  IconButton,
 } from "@mui/material";
 import { useCart } from "@/context";
 import { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Link from "next/link";
 
 export function Header() {
   const { cart } = useCart();
@@ -34,9 +36,13 @@ export function Header() {
           </Typography>
 
           {mounted ? (
-            <Badge badgeContent={reducedCartItemsNumber} color="secondary">
-              <ShoppingCartIcon />
-            </Badge>
+            <Link href={"/cart"} aria-label="Go To Cart">
+              <IconButton>
+                <Badge badgeContent={reducedCartItemsNumber} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Link>
           ) : (
             <Skeleton
               variant="circular"
