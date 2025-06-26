@@ -1,15 +1,20 @@
 "use client";
 import { Box, Button, CardActions, Typography } from "@mui/material";
 import { useCart } from "@/context";
+import { CartContextType } from "@/types/cart";
 
-export const FoodCardActions = ({
-  price,
-  slug,
-}: {
-  price: number;
-  slug: string;
-}) => {
-  const { cart, addToCart } = useCart();
+type CartItemArg = Parameters<CartContextType["addToCart"]>[0];
+
+type Props = Omit<CartItemArg, "quantity">;
+
+export const FoodCardActions = ({ product }: { product: Props }) => {
+  //TODO
+  const { addToCart } = useCart();
+
+  const handleAdd = () => {
+    addToCart({ ...product, quantity: 1 });
+  };
+
   return (
     <CardActions>
       <Box
@@ -19,10 +24,10 @@ export const FoodCardActions = ({
         width="100%"
       >
         <Typography variant="body2" color="primary">
-          ${price}
+          ${product.price}
         </Typography>
         <Button
-          onClick={() => addToCart(slug)}
+          onClick={handleAdd}
           size="small"
           sx={{
             border: "1px solid",

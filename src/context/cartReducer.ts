@@ -1,20 +1,22 @@
 import { CartItem } from "@/types/cart";
 
 export type CartAction =
-  | { type: "add"; slug: string }
+  | { type: "add"; item: CartItem }
   | { type: "update"; slug: string; quantity: number }
   | { type: "remove"; slug: string };
 
 export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
   switch (action.type) {
     case "add": {
-      const exists = state.find((i) => i.slug === action.slug);
+      const exists = state.find((i) => i.slug === action.item.slug);
       if (exists) {
         return state.map((i) =>
-          i.slug === action.slug ? { ...i, quantity: i.quantity + 1 } : i
+          i.slug === action.item.slug
+            ? { ...i, quantity: i.quantity + action.item.quantity }
+            : i
         );
       }
-      return [...state, { slug: action.slug, quantity: 1 }];
+      return [...state, action.item];
     }
     case "update": {
       if (action.quantity <= 0) {

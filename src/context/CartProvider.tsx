@@ -20,7 +20,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setStoredCart(cart);
   }, [cart, setStoredCart]);
 
-  const addToCart = (slug: string) => dispatch({ type: "add", slug });
+  const addToCart = (item: CartItem) => dispatch({ type: "add", item });
   const updateQuantity = (slug: string, quantity: number) =>
     dispatch({ type: "update", slug, quantity });
   const removeFromCart = (slug: string) => dispatch({ type: "remove", slug });
