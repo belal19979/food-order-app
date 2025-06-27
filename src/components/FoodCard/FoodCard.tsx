@@ -7,14 +7,15 @@ import { FoodImage } from "./FoodImage";
 import { FoodCardContent } from "./FoodCardContent";
 import { FoodCardActions } from "./FoodCardActions";
 
-export function FoodCard(product: FoodItem) {
+export function FoodCard(foodItem: FoodItem) {
+  const { slug, name, price, description, image } = foodItem;
   return (
     <Card sx={{ width: "100%", maxWidth: 320 }}>
-      <CardActionArea component={Link} href={`/menu/${product.slug}`}>
-        <FoodImage src={product.image} alt={product.name} />
+      <CardActionArea component={Link} href={`/menu/${slug}`}>
+        <FoodImage src={image} alt={name} />
       </CardActionArea>
-      <FoodCardContent name={product.name} description={product.description} />
-      <FoodCardActions product={product} />
+      <FoodCardContent name={name} description={description} />
+      <FoodCardActions slug={slug} price={price} />
     </Card>
   );
 }

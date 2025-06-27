@@ -7,13 +7,15 @@ import { useCart } from "@/context";
 
 export const Cart = () => {
   const { cart } = useCart();
-  console.log(cart);
+
   return (
     <Grid container component="section" sx={{ width: "100%" }} spacing={15}>
       <Grid size={{ xs: 12, md: 9 }}>
         <Stack direction="column" spacing={3}>
           <CartHeader />
-          <CartItemRow />
+          {cart.map((cartItem) => (
+            <CartItemRow key={cartItem.slug} cartItem={cartItem} />
+          ))}
         </Stack>
       </Grid>
       <Grid size={{ xs: 12, md: 3 }}>

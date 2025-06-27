@@ -5,21 +5,16 @@ import { useMemo, useState } from "react";
 import { FilterBar } from "./FilterBar/FilterBar";
 import { filterItems } from "./filterItems";
 import { renderMenuContent } from "./renderMenuContent";
+import { useFoodItems } from "@/context/foodItemsContext";
 
 import { useDebounce } from "@/hooks";
 
-import { FoodItem } from "@/types/food";
-
-export function MenuShell({
-  foodItems,
-  categories,
-}: {
-  foodItems: FoodItem[];
-  categories: string[];
-}) {
+export function MenuShell({ categories }: { categories: string[] }) {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
+
+  const foodItems = useFoodItems();
 
   const filteredItems = useMemo(
     () => filterItems(foodItems, category, debouncedSearch),

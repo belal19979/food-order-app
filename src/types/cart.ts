@@ -8,7 +8,7 @@ export type CartItem = Pick<
 
 export interface CartContextType {
   cart: CartItem[];
-  addToCart: (item: CartItem) => void;
+  addToCart: (slug: string) => void;
   updateQuantity: (slug: string, quantity: number) => void;
   removeFromCart: (slug: string) => void;
 }

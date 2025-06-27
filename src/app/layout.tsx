@@ -1,14 +1,16 @@
 import { AppLayout } from "@/components";
-
-export default function RootLayout({
+import { getAllFoodItems } from "@/lib/api/food";
+import { FoodItem } from "@/types/food";
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const foodItems: FoodItem[] = await getAllFoodItems();
   return (
     <html lang="en">
       <body>
-        <AppLayout>{children}</AppLayout>
+        <AppLayout foodItems={foodItems}>{children}</AppLayout>
       </body>
     </html>
   );
