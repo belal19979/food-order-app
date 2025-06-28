@@ -5,8 +5,7 @@ import { CartItemImage } from "./CartItemImage";
 import { CartItem } from "@/types/cart";
 
 export const CartItemRow = ({ cartItem }: { cartItem: CartItem }) => {
-  const { name, image, price, quantity, slug, description, category } =
-    cartItem;
+  const { image, slug } = cartItem;
   return (
     <Paper variant="outlined" sx={{ borderRadius: 2 }}>
       <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
@@ -18,13 +17,13 @@ export const CartItemRow = ({ cartItem }: { cartItem: CartItem }) => {
           flex={1}
           padding={2}
         >
-          <CartItemInfo name={name} description={description} price={price} />
+          <CartItemInfo cartItem={cartItem} />
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
           >
-            <Typography variant="body2">unit price </Typography>
+            <Typography variant="body1">unit price </Typography>
             <ActionButtons slug={slug} />
           </Stack>
         </Box>

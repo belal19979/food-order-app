@@ -27,7 +27,7 @@ export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
       );
     }
     case "remove": {
-      return [];
+      return state.filter((i) => i.slug !== action.slug);
     }
     default:
       return state;
