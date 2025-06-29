@@ -1,13 +1,6 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  Box,
-  TextField,
-  Button,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, TextField, Paper, Stack, Typography } from "@mui/material";
 
 type FormValues = {
   fullName: string;
@@ -21,7 +14,7 @@ export const CheckoutForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({ mode: "onBlur" });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log("submit", data);
@@ -83,10 +76,6 @@ export const CheckoutForm = () => {
             multiline
             rows={2}
           />
-
-          <Button type="submit" variant="contained" size="large">
-            Continue
-          </Button>
         </Stack>
       </form>
     </Box>

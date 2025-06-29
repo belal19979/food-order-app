@@ -6,6 +6,5 @@ export * from "./MenuShell/MenuShell";
 
 export * from "./ErrorMessage";
 export * from "./AppLayout";
-export * from "./SectionHeading";
 export * from "./Cart/Cart";
 export * from "./Checkout/Checkout";
