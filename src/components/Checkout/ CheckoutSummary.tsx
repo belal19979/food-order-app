@@ -1,10 +1,22 @@
 "use client";
 import { useCart } from "@/context";
-import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Paper,
+  Stack,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { SummaryRow } from "@/components/ui";
 import { useCartSummary } from "@/hooks";
 
-export const CheckoutSummary = () => {
+export const CheckoutSummary = ({
+  isSubmitting,
+}: {
+  isSubmitting: boolean;
+}) => {
   const { cart } = useCart();
   const { subtotal, tax, deliveryFee, total } = useCartSummary();
 
@@ -15,13 +27,15 @@ export const CheckoutSummary = () => {
           Order Summary
         </Typography>
         <Stack direction="column" spacing={2} mt={3}>
-          {cart.map(({ slug, price, name, quantity }) => (
-            <SummaryRow
-              key={slug}
-              label={`${name} × ${quantity}`}
-              value={price * quantity}
-            />
-          ))}
+          {cart
+            .filter(({ quantity }) => quantity > 0)
+            .map(({ slug, price, name, quantity }) => (
+              <SummaryRow
+                key={slug}
+                label={`${name} × ${quantity}`}
+                value={price * quantity}
+              />
+            ))}
         </Stack>
         <Stack direction="column" spacing={1}>
           <SummaryRow variant="body2" label="Subtotal" value={subtotal} />
@@ -35,9 +49,15 @@ export const CheckoutSummary = () => {
           <SummaryRow label={"Tax"} value={tax} variant="body2" />
         </Stack>
         <SummaryRow label="Total" value={total} variant="h6" />
-
-        <Button variant="contained" size="large" fullWidth>
-          Confirm Order
+        <Button
+          type="submit"
+          variant="contained"
+          size="large"
+          disabled={isSubmitting}
+          fullWidth
+          startIcon={isSubmitting ? <CircularProgress size={20} /> : undefined}
+        >
+          {isSubmitting ? "Placing Order…" : "Place Order"}
         </Button>
       </Stack>
     </Box>

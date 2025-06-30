@@ -21,7 +21,7 @@ export const CartSummary = () => {
       </Stack>
       {subtotal > 0 ? (
         <Link href="/checkout">
-          <Button component="a" variant="contained" fullWidth>
+          <Button variant="contained" fullWidth>
             Checkout
           </Button>
         </Link>

@@ -56,10 +56,11 @@ export function CartProvider({
     dispatch({ type: "update", slug, quantity });
 
   const removeFromCart = (slug: string) => dispatch({ type: "remove", slug });
+  const clearCart = () => dispatch({ type: "clear" });
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart }}
+      value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

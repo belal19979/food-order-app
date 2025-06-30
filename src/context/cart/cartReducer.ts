@@ -3,7 +3,8 @@ import { CartItem } from "@/types/cart";
 export type CartAction =
   | { type: "add"; item: CartItem }
   | { type: "update"; slug: string; quantity: number }
-  | { type: "remove"; slug: string };
+  | { type: "remove"; slug: string }
+  | { type: "clear" };
 
 export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
   switch (action.type) {
@@ -20,7 +21,7 @@ export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
     }
     case "update": {
       if (action.quantity <= 0) {
-        state.filter((i) => i.slug !== action.slug);
+        return state.filter((i) => i.slug !== action.slug);
       }
       return state.map((i) =>
         i.slug === action.slug ? { ...i, quantity: action.quantity } : i
@@ -28,6 +29,9 @@ export function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
     }
     case "remove": {
       return state.filter((i) => i.slug !== action.slug);
+    }
+    case "clear": {
+      return [];
     }
     default:
       return state;
