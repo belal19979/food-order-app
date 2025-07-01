@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "prisma migrate dev",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "db:seed:orders": "tsx prisma/seed-orders.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",

@@ -1,29 +1,23 @@
 import { OrderConfirmation } from "@/components";
 import { Order } from "@/types/order";
+import { prisma } from "@/lib/prisma";
+
 export default async function page(props: {
   params: Promise<{ orderId: string }>;
 }) {
-  const { orderId } = await props.params;
+  // const { orderId } = await props.params;
+  const id = "cmck1h0rf0000nm1y02csp8yw";
+  const order = await prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: { include: { food: { select: { name: true, image: true } } } },
+    },
+  });
 
-  const order: Order = {
-    id: orderId,
-    customerName: "Jane Smith",
-    customerPhone: "012‐345‐6789",
-    customerEmail: "jane@example.com",
-    items: [
-      {
-        slug: "margherita",
-        name: "Margherita Pizza",
-        price: 12.5,
-        quantity: 2,
-      },
-      { slug: "caesar‐salad", name: "Caesar Salad", price: 8.0, quantity: 1 },
-    ],
-    subtotal: 12.5 * 2 + 8.0 * 1,
-    deliveryFee: 5.0,
-    tax: 2.64,
-    total: 33.0 + 5.0 + 2.64,
-  };
+  if (!order) {
+    return <p>Order not found</p>;
+  }
+  console.log("order from be", order);
 
   return <OrderConfirmation order={order} />;
 }

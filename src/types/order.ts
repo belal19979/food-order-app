@@ -12,11 +12,15 @@ export type Order = {
   customerName: string;
   customerPhone: string;
   customerEmail?: string;
-  items: OrderItem[];
+  deliveryAddress: string;
+  deliveryNote: string;
+
   subtotal: number;
   deliveryFee: number;
   tax: number;
   total: number;
+
+  items: OrderItem[];
 };
 
 // The minimal shape the client must send when creating a new order.

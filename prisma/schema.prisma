@@ -22,5 +22,30 @@ model FoodItem {
   price       Float
   category    String
   image       String
+  OrderItem OrderItem[]
 }
 
+model Order {
+  id             String     @id @default(cuid())
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  deliveryAddress   String
+  deliveryNote   String?
+  subtotal       Decimal
+  deliveryFee    Decimal
+  tax            Decimal
+  total          Decimal
+  createdAt      DateTime   @default(now())
+  items          OrderItem[]
+}
+
+model OrderItem {
+  id       String   @id @default(cuid())
+  order    Order    @relation(fields: [orderId], references: [id])
+  orderId  String
+  food     FoodItem @relation(fields: [foodId], references: [id])
+  foodId   String
+  quantity Int
+  price    Decimal  
+}
