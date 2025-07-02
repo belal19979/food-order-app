@@ -38,7 +38,7 @@ export const Checkout = () => {
     setIsNavigating(true);
     console.log("sending payload:", payload);
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    const orderId = 1234;
+    const orderId = "cmck1h0rf0000nm1y02csp8yw";
     router.replace(`/order-confirmation/${orderId}`);
     clearCart();
   };

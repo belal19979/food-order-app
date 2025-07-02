@@ -16,13 +16,13 @@ export const OrderConfirmation = ({ order }: { order: Order }) => {
       <Box mt={4}>
         {order.items.map((it) => (
           <Box
-            key={it.slug}
+            key={it.food.name}
             display="flex"
             justifyContent="space-between"
             mb={1}
           >
             <Typography>
-              {it.name} × {it.quantity}
+              {it.food.name} × {it.quantity}
             </Typography>
             <Typography>€{(it.price * it.quantity).toFixed(2)}</Typography>
           </Box>

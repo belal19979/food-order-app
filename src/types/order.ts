@@ -1,10 +1,12 @@
 import { FormValues } from "./form";
 
 export type OrderItem = {
-  slug: string;
-  name: string;
+  id: string;
+  foodId: string;
+  orderId: string;
   price: number;
   quantity: number;
+  food: { name: string };
 };
 
 export type Order = {
