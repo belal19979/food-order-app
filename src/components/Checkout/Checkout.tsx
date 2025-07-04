@@ -12,6 +12,8 @@ import { FormValues } from "@/types/form";
 import { CreateOrderPayload } from "@/types/order";
 
 export const Checkout = () => {
+  const [result, setResult] = useState<string | null>(null);
+
   const { cart, clearCart } = useCart();
   const [isNavigating, setIsNavigating] = useState(false);
   const router = useRouter();
@@ -37,7 +39,17 @@ export const Checkout = () => {
     };
     setIsNavigating(true);
     console.log("sending payload:", payload);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      setResult(`Error: ${res.status} ${await res.text()}`);
+      return;
+    }
     const orderId = "cmck1h0rf0000nm1y02csp8yw";
     router.replace(`/order-confirmation/${orderId}`);
     clearCart();
