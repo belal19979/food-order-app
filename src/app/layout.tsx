@@ -1,5 +1,5 @@
 import { AppLayout } from "@/components";
-import { getAllFoodItems } from "@/lib/api/food";
+import { getAllFoodItems } from "@/lib/server/food";
 import { FoodItem } from "@/types/food";
 export default async function RootLayout({
   children,

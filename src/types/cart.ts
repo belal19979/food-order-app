@@ -1,7 +1,7 @@
 import { FoodItem } from "./food";
 export type CartItem = Pick<
   FoodItem,
-  "name" | "category" | "description" | "image" | "price" | "slug"
+  "id" | "name" | "category" | "description" | "image" | "price" | "slug"
 > & {
   quantity: number;
 };

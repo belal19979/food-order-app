@@ -12,13 +12,10 @@ export default async function page(props: {
       items: { include: { food: { select: { name: true } } } },
     },
   });
-  console.log("order", order);
   if (!order) {
     return <p>Order not found</p>;
   }
-  console.log("order from be", order);
   const orderForUI = serializeOrder(order);
-  console.log("orderForUI", orderForUI);
 
   return <OrderConfirmation order={orderForUI} />;
 }

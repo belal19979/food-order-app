@@ -1,4 +1,4 @@
-import { getFoodCategories } from "@/lib/api/food";
+import { getFoodCategories } from "@/lib/server/food";
 import { MenuShell } from "@/components";
 
 export default async function Menu() {

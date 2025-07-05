@@ -1,5 +1,3 @@
-import { FormValues } from "./form";
-
 export type OrderItem = {
   id: string;
   foodId: string;
@@ -27,9 +25,15 @@ export type Order = {
 
 // The minimal shape the client must send when creating a new order.
 
-export type CreateOrderItem = Pick<OrderItem, "slug" | "quantity">;
-
+export interface CreateOrderItem {
+  foodId: string;
+  quantity: number;
+}
 export type CreateOrderPayload = {
-  customer: FormValues;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  deliveryAddress: string;
+  deliveryNote?: string;
   items: CreateOrderItem[];
 };
