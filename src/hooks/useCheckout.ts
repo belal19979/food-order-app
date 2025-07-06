@@ -15,8 +15,8 @@ export function useCheckout() {
 
   // redirect if cart empty
   useEffect(() => {
-    if (cart.length === 0) router.replace("/menu");
-  }, [cart, router]);
+    if (cart.length === 0 && !loading) router.replace("/menu");
+  }, [cart, router, loading]);
 
   async function submit(data: FormValues) {
     setLoading(true);

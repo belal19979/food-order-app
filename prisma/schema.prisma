@@ -19,7 +19,7 @@ model FoodItem {
   name        String
   slug        String  @unique
   description String
-  price       Float
+  price       Decimal
   category    String
   image       String
   OrderItem OrderItem[]

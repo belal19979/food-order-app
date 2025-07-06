@@ -2,7 +2,8 @@ import { prisma } from "../prisma";
 import { FoodItem } from "@/types/food";
 
 export async function getAllFoodItems(): Promise<FoodItem[]> {
-  return prisma.foodItem.findMany();
+  const items = await prisma.foodItem.findMany();
+  return items.map((item) => ({ ...item, price: item.price.toNumber() }));
 }
 
 export async function getFoodItemBySlug(slug: string): Promise<FoodItem> {
@@ -10,7 +11,7 @@ export async function getFoodItemBySlug(slug: string): Promise<FoodItem> {
   if (!item) {
     throw new Error(`No food item with slug=${slug} `);
   }
-  return item;
+  return { ...item, price: item.price.toNumber() };
 }
 
 export async function getFoodCategories(): Promise<string[]> {
