@@ -3,8 +3,10 @@
 import { useAuthHandler } from "@/hooks";
 import { AuthForm } from "./AuthForm";
 
-export const Login = () => {
-  const login = useAuthHandler("login");
+export const Login = ({ callbackUrl }: { callbackUrl: string }) => {
+  const login = useAuthHandler("login", callbackUrl);
+  console.log("callbackUrl", callbackUrl);
+
   return (
     <AuthForm
       signIn={login}

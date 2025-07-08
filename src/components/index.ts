@@ -1,6 +1,7 @@
-export * from "./Header";
+export * from "./header/Header";
 export * from "./ErrorMessage";
 export * from "./AppLayout";
+export * from "./AuthProvider";
 
 export * from "./FoodCard/FoodCard";
 export * from "./MenuItemDetail/MenuItemDetail";

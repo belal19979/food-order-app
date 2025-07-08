@@ -1,4 +1,4 @@
-import { AppLayout } from "@/components";
+import { AppLayout, AuthProvider } from "@/components";
 import { getAllFoodItems } from "@/lib/server/food";
 import { FoodItem } from "@/types/food";
 export default async function RootLayout({
@@ -10,7 +10,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppLayout foodItems={foodItems}>{children}</AppLayout>
+        <AuthProvider>
+          <AppLayout foodItems={foodItems}>{children}</AppLayout>
+        </AuthProvider>
       </body>
     </html>
   );

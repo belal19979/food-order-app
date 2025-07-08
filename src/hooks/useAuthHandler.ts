@@ -7,7 +7,10 @@ import type { AuthProvider, AuthResponse } from "@toolpad/core/SignInPage";
  * wired up to either `/api/auth/login` or `/api/auth/register`.
  */
 
-export function useAuthHandler(mode: "login" | "register") {
+export function useAuthHandler(
+  mode: "login" | "register",
+  callbackUrl: string
+) {
   const router = useRouter();
 
   return async (
@@ -34,7 +37,7 @@ export function useAuthHandler(mode: "login" | "register") {
         };
       }
     }
-    router.replace("/menu");
+    router.replace(callbackUrl);
     return {};
   };
 }

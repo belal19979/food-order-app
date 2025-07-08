@@ -1,6 +1,8 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { prisma } from "../prisma";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -28,4 +30,15 @@ export async function verifyPassword(
     );
   }
   return true;
+}
+
+export async function getCurrentUser() {
+  const token = (await cookies()).get("authToken")?.value;
+  if (!token) return null;
+  const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
+  const userId = payload.userId;
+  return await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true, email: true },
+  });
 }
