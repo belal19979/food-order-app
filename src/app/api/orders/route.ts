@@ -3,8 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { CreateOrderInput, CreateOrderSchema } from "@/lib/schemas/order";
 import { computeTotals, buildLineItems } from "@/lib/server/orders";
+import { getCurrentUser } from "@/lib/server/auth";
 
 export async function POST(req: Request) {
+  const user = await getCurrentUser();
+  if (!user) return NextResponse.json({ status: 401 });
+
   let payload: CreateOrderInput;
   try {
     const json = await req.json();
@@ -29,6 +33,9 @@ export async function POST(req: Request) {
       customerEmail: payload.customerEmail,
       deliveryAddress: payload.deliveryAddress,
       deliveryNote: payload.deliveryNote,
+      user: {
+        connect: { id: user.id },
+      },
 
       subtotal,
       deliveryFee: new Prisma.Decimal(deliveryFee),

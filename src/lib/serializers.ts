@@ -33,6 +33,14 @@ export function serializeOrder(raw: RawOrderWithItems): UIOrder {
     tax: raw.tax.toNumber(),
     total: raw.total.toNumber(),
 
+    createdAt: raw.createdAt.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+
     items: raw.items.map(
       (item): UIOrderItem => ({
         id: item.id,

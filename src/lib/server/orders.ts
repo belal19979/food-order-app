@@ -40,3 +40,17 @@ export async function buildLineItems(
     };
   });
 }
+
+export async function getOrdersForUser(userId: string) {
+  return prisma.order.findMany({
+    where: { userId },
+    include: {
+      items: {
+        include: {
+          food: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+}
