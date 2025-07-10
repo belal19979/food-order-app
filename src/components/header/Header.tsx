@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, Container, Box } from "@mui/material";
 import Link from "next/link";
 
 import { CartButton } from "./CartButton";
-import { AuthLinks } from "./AuthLinks";
+import { AuthMenu } from "./AuthMenu";
 
 export function Header() {
   return (
@@ -21,7 +21,7 @@ export function Header() {
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <CartButton />
-            <AuthLinks />
+            <AuthMenu />
           </Box>
         </Toolbar>
       </Container>
