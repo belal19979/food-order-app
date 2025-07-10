@@ -1,4 +1,4 @@
-import { OrdersShell } from "@/components/OrdersShell/OrdersShell";
+import { OrdersShell } from "@/components/Orders/OrdersShell";
 import { getOrdersForUser } from "@/lib/server/orders";
 import { serializeOrder } from "@/lib/serializers";
 

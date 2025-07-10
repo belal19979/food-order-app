@@ -4,7 +4,7 @@ export type OrderItem = {
   orderId: string;
   price: number;
   quantity: number;
-  food: { name: string };
+  food: { name: string; image: string };
 };
 
 export type Order = {

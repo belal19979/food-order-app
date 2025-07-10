@@ -12,7 +12,7 @@ type RawOrderWithItems = Prisma.OrderGetPayload<{
   include: {
     items: {
       include: {
-        food: { select: { name: true } };
+        food: { select: { name: true; image: true } };
       };
     };
   };
@@ -48,7 +48,7 @@ export function serializeOrder(raw: RawOrderWithItems): UIOrder {
         foodId: item.foodId,
         quantity: item.quantity,
         price: item.price.toNumber(), // Convert  Decimal → number
-        food: { name: item.food.name },
+        food: { name: item.food.name, image: item.food.image },
       })
     ),
   };
