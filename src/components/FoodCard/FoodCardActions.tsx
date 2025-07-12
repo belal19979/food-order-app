@@ -1,6 +1,13 @@
 "use client";
-import { Box, Button, CardActions, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CardActions,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { useCart } from "@/context";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const FoodCardActions = ({
   slug,
@@ -15,6 +22,8 @@ export const FoodCardActions = ({
     addToCart(slug);
   };
 
+  const handleFavorite = () => {};
+
   return (
     <CardActions>
       <Box
@@ -26,19 +35,24 @@ export const FoodCardActions = ({
         <Typography variant="body2" color="primary">
           ${price}
         </Typography>
-        <Button
-          onClick={handleAdd}
-          size="small"
-          sx={{
-            border: "1px solid",
-            "&:hover": {
-              backgroundColor: "primary.main",
-              color: "white",
-            },
-          }}
-        >
-          Add to cart
-        </Button>
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Button
+            onClick={handleAdd}
+            size="small"
+            sx={{
+              border: "1px solid",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "white",
+              },
+            }}
+          >
+            Add to cart
+          </Button>
+          <IconButton onClick={handleFavorite}>
+            <FavoriteIcon />
+          </IconButton>
+        </Box>
       </Box>
     </CardActions>
   );

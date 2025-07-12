@@ -23,6 +23,8 @@ model FoodItem {
   category    String
   image       String
   OrderItem OrderItem[]
+  favorites Favorite[] 
+
 }
 
 model Order {
@@ -60,4 +62,13 @@ model User {
   hash     String      
   createdAt      DateTime   @default(now())
   orders Order[] @relation("UserOrders")
+  favorites Favorite[] 
+}
+
+model Favorite {
+  id   String    @id @default(cuid())
+  user User     @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId String
+  food FoodItem  @relation(fields: [foodId],references: [id],onDelete: Cascade)
+  foodId String
 }
