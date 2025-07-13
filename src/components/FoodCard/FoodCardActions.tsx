@@ -1,18 +1,14 @@
 "use client";
-import {
-  Box,
-  Button,
-  CardActions,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CardActions, Typography, Stack } from "@mui/material";
 import { useCart } from "@/context";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { FavoriteAction } from "../ui";
 
 export const FoodCardActions = ({
+  id,
   slug,
   price,
 }: {
+  id: string;
   slug: string;
   price: number;
 }) => {
@@ -21,8 +17,6 @@ export const FoodCardActions = ({
   const handleAdd = () => {
     addToCart(slug);
   };
-
-  const handleFavorite = () => {};
 
   return (
     <CardActions>
@@ -35,11 +29,12 @@ export const FoodCardActions = ({
         <Typography variant="body2" color="primary">
           ${price}
         </Typography>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Stack direction="row" spacing={2}>
           <Button
             onClick={handleAdd}
             size="small"
             sx={{
+              px: 2,
               border: "1px solid",
               "&:hover": {
                 backgroundColor: "primary.main",
@@ -49,10 +44,9 @@ export const FoodCardActions = ({
           >
             Add to cart
           </Button>
-          <IconButton onClick={handleFavorite}>
-            <FavoriteIcon />
-          </IconButton>
-        </Box>
+
+          <FavoriteAction id={id} />
+        </Stack>
       </Box>
     </CardActions>
   );
