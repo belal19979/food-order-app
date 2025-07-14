@@ -2,6 +2,7 @@
 import { FoodItem } from "@/types/food";
 import { Box, Stack, Typography } from "@mui/material";
 import { ActionButtons } from "./ActionButtons";
+import { FavoriteAction } from "../ui";
 
 export function InfoBlock({ item }: { item: FoodItem }) {
   return (
@@ -27,8 +28,9 @@ export function InfoBlock({ item }: { item: FoodItem }) {
         {item.category}
       </Typography>
 
-      <Box display="flex" mt="auto" pt={3}>
+      <Box display="flex" justifyContent="space-between" mt="auto" pt={3}>
         <ActionButtons slug={item.slug} />
+        <FavoriteAction id={item.id} />
       </Box>
     </Stack>
   );
