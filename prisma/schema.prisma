@@ -24,6 +24,7 @@ model FoodItem {
   image       String
   OrderItem OrderItem[]
   favorites Favorite[] 
+  cart CartItem[]
 
 }
 
@@ -62,7 +63,8 @@ model User {
   hash     String      
   createdAt      DateTime   @default(now())
   orders Order[] @relation("UserOrders")
-  favorites Favorite[] 
+  favorites Favorite[]
+  cart CartItem[] 
 }
 
 model Favorite {
@@ -71,4 +73,15 @@ model Favorite {
   userId String
   food FoodItem  @relation(fields: [foodId],references: [id],onDelete: Cascade)
   foodId String
+  @@unique([userId,foodId]) 
+}
+
+model CartItem {
+  id String  @id @default(cuid())
+  user User     @relation(fields: [userId],references: [id],onDelete: Cascade)
+  userId String
+  food FoodItem  @relation(fields: [foodId],references: [id],onDelete: Cascade)
+  foodId String
+  quantity Int  @default(1)
+  @@unique([userId,foodId]) 
 }
