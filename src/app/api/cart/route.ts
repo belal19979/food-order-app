@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     foodId: string;
     quantity: number;
   };
+  console.log("recieved quantity", quantity);
   const user = await getCurrentUser();
   if (!user) return NextResponse.error();
 

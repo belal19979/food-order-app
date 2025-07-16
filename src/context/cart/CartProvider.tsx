@@ -12,7 +12,7 @@ import { cartReducer } from "./cartReducer";
 import { CartContextType, LocalCartItem } from "@/types/cart";
 import { FoodItem } from "@/types/food";
 import { useAuth } from "@/components";
-import { DeleteCart, FetchCard, UpsertCart } from "./cartUtils";
+import { deleteCart, fetchCard, upsertCart } from "./cartUtils";
 
 export const CartContext = createContext<CartContextType | undefined>(
   undefined
@@ -42,7 +42,7 @@ export function CartProvider({
 
   useEffect(() => {
     if (!authLoading && user) {
-      FetchCard()
+      fetchCard()
         .then((localItems) => {
           dispatch({ type: "replace", items: localItems });
           setStoredCart(localItems);
@@ -57,13 +57,17 @@ export function CartProvider({
       if (!foodItem) {
         throw new Error(`CartProvider: tried to add unknown slug "${slug}"`);
       }
-      const newItem: LocalCartItem = { food: foodItem, quantity: 1 };
-      dispatch({ type: "add", item: newItem });
-      if (user) {
-        UpsertCart(foodItem.id, 1);
+      const exists = cart.find((item) => item.food.slug === slug);
+      console.log("exits", exists);
+      if (exists) {
+        dispatch({ type: "update", slug, quantity: exists.quantity + 1 });
+        if (user) upsertCart(foodItem.id, exists.quantity + 1);
+      } else {
+        dispatch({ type: "add", item: { food: foodItem, quantity: 1 } });
+        if (user) upsertCart(foodItem.id, 1);
       }
     },
-    [dispatch, foodItemsBySlug, user]
+    [dispatch, foodItemsBySlug, user, cart]
   );
 
   const updateQuantity = (slug: string, quantity: number) => {
@@ -71,7 +75,7 @@ export function CartProvider({
 
     if (user) {
       const id = foodItemsBySlug[slug].id;
-      UpsertCart(id, quantity);
+      upsertCart(id, quantity);
     }
   };
 
@@ -79,12 +83,12 @@ export function CartProvider({
     dispatch({ type: "remove", slug });
     if (user) {
       const id = foodItemsBySlug[slug].id;
-      DeleteCart(id);
+      deleteCart(id);
     }
   };
   const clearCart = async () => {
     dispatch({ type: "clear" });
-    if (user) DeleteCart();
+    if (user) deleteCart();
   };
   return (
     <CartContext.Provider

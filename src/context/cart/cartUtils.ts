@@ -1,6 +1,6 @@
 import { LocalCartItem, ServerCartItem } from "@/types/cart";
 
-export async function FetchCard() {
+export async function fetchCard() {
   try {
     const res = await fetch("/api/cart");
     if (!res.ok) throw new Error("Failed to load cart");
@@ -19,7 +19,8 @@ export async function FetchCard() {
   }
 }
 
-export async function UpsertCart(foodId: string, quantity: number) {
+export async function upsertCart(foodId: string, quantity: number) {
+  console.log("sent qty", quantity);
   try {
     await fetch("/api/cart", {
       method: "POST",
@@ -34,7 +35,7 @@ export async function UpsertCart(foodId: string, quantity: number) {
   }
 }
 
-export async function DeleteCart(foodId?: string) {
+export async function deleteCart(foodId?: string) {
   const url = "/api/cart";
   const opts: RequestInit = foodId
     ? {
