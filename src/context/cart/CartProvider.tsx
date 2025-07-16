@@ -9,8 +9,10 @@ import {
 } from "react";
 import { useLocalStorageState } from "../useLocalStorage";
 import { cartReducer } from "./cartReducer";
-import { CartContextType, CartItem } from "@/types/cart";
+import { CartContextType, LocalCartItem } from "@/types/cart";
 import { FoodItem } from "@/types/food";
+import { useAuth } from "@/components";
+import { DeleteCart, FetchCard, UpsertCart } from "./cartUtils";
 
 export const CartContext = createContext<CartContextType | undefined>(
   undefined
@@ -23,7 +25,9 @@ export function CartProvider({
   foodItems: FoodItem[];
   children: React.ReactNode;
 }) {
-  const [storedCart, setStoredCart] = useLocalStorageState<CartItem[]>(
+  const { user, loading: authLoading } = useAuth();
+
+  const [storedCart, setStoredCart] = useLocalStorageState<LocalCartItem[]>(
     "cart",
     []
   );
@@ -37,8 +41,15 @@ export function CartProvider({
   }, [foodItems]);
 
   useEffect(() => {
-    setStoredCart(cart);
-  }, [cart, setStoredCart]);
+    if (!authLoading && user) {
+      FetchCard()
+        .then((localItems) => {
+          dispatch({ type: "replace", items: localItems });
+          setStoredCart(localItems);
+        })
+        .catch(console.error);
+    }
+  }, [user, authLoading, setStoredCart]);
 
   const addToCart = useCallback(
     (slug: string) => {
@@ -46,18 +57,35 @@ export function CartProvider({
       if (!foodItem) {
         throw new Error(`CartProvider: tried to add unknown slug "${slug}"`);
       }
-      const newItem: CartItem = { ...foodItem, quantity: 1 };
+      const newItem: LocalCartItem = { food: foodItem, quantity: 1 };
       dispatch({ type: "add", item: newItem });
+      if (user) {
+        UpsertCart(foodItem.id, 1);
+      }
     },
-    [dispatch, foodItemsBySlug]
+    [dispatch, foodItemsBySlug, user]
   );
 
-  const updateQuantity = (slug: string, quantity: number) =>
+  const updateQuantity = (slug: string, quantity: number) => {
     dispatch({ type: "update", slug, quantity });
 
-  const removeFromCart = (slug: string) => dispatch({ type: "remove", slug });
-  const clearCart = () => dispatch({ type: "clear" });
+    if (user) {
+      const id = foodItemsBySlug[slug].id;
+      UpsertCart(id, quantity);
+    }
+  };
 
+  const removeFromCart = async (slug: string) => {
+    dispatch({ type: "remove", slug });
+    if (user) {
+      const id = foodItemsBySlug[slug].id;
+      DeleteCart(id);
+    }
+  };
+  const clearCart = async () => {
+    dispatch({ type: "clear" });
+    if (user) DeleteCart();
+  };
   return (
     <CartContext.Provider
       value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart }}

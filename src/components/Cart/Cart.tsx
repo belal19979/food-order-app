@@ -14,7 +14,7 @@ export const Cart = () => {
         <Stack direction="column" spacing={3}>
           <CartHeader />
           {cart.map((cartItem) => (
-            <CartItemRow key={cartItem.slug} cartItem={cartItem} />
+            <CartItemRow key={cartItem.food.slug} cartItem={cartItem} />
           ))}
         </Stack>
       </Grid>

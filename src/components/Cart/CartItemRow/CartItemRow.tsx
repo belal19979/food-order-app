@@ -2,10 +2,12 @@ import { Stack, Box, Typography, Paper } from "@mui/material";
 import { ActionButtons } from "../../MenuItemDetail/ActionButtons";
 import { CartItemInfo } from "./CartItemInfo";
 import { CartItemImage } from "./CartItemImage";
-import { CartItem } from "@/types/cart";
+import { LocalCartItem } from "@/types/cart";
 
-export const CartItemRow = ({ cartItem }: { cartItem: CartItem }) => {
-  const { image, slug } = cartItem;
+export const CartItemRow = ({ cartItem }: { cartItem: LocalCartItem }) => {
+  const {
+    food: { image, slug },
+  } = cartItem;
   return (
     <Paper variant="outlined" sx={{ borderRadius: 2 }}>
       <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>

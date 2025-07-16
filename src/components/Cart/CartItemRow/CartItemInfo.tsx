@@ -2,11 +2,13 @@ import { Stack, Typography, IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import { useCart } from "@/context";
-import { CartItem } from "@/types/cart";
+import { LocalCartItem } from "@/types/cart";
 
-export const CartItemInfo = ({ cartItem }: { cartItem: CartItem }) => {
+export const CartItemInfo = ({ cartItem }: { cartItem: LocalCartItem }) => {
   const { removeFromCart } = useCart();
-  const { slug, name, description, price, category } = cartItem;
+  const {
+    food: { slug, name, description, price, category },
+  } = cartItem;
 
   return (
     <Stack

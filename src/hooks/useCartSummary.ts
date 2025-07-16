@@ -18,7 +18,7 @@ export const useCartSummary = ({
   const { cart } = useCart();
   const { subtotal, tax, total } = useMemo(() => {
     const subtotal = cart.reduce(
-      (sum, { price, quantity }) => sum + price * quantity,
+      (sum, { food: { price }, quantity }) => sum + price * quantity,
       0
     );
     const tax = subtotal * taxRate;

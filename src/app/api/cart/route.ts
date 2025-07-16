@@ -31,13 +31,23 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { foodId } = (await req.json()) as {
-    foodId: string;
-  };
   const user = await getCurrentUser();
   if (!user) return NextResponse.error();
-  await prisma.cartItem.delete({
-    where: { userId_foodId: { userId: user.id, foodId } },
-  });
+
+  const body = await req.json().catch(() => ({}));
+  // if they passed a foodId, just delete that one:
+  if (body.foodId) {
+    await prisma.cartItem.delete({
+      where: {
+        userId_foodId: { userId: user.id, foodId: body.foodId },
+      },
+    });
+  } else {
+    // otherwise clear *all* items for this user
+    await prisma.cartItem.deleteMany({
+      where: { userId: user.id },
+    });
+  }
+
   return NextResponse.json({ success: true });
 }

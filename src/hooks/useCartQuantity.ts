@@ -2,12 +2,13 @@ import { useCallback, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
 
 import { useCart } from "@/context";
-import { CartItem } from "@/types/cart";
+import { LocalCartItem } from "@/types/cart";
 
 export const useCartQuantity = (slug: string) => {
   const { cart, updateQuantity, addToCart } = useCart();
-
-  const item: CartItem | undefined = cart.find((item) => item.slug === slug);
+  const item: LocalCartItem | undefined = cart.find(
+    (item) => item.food.slug === slug
+  );
   const quantity = item?.quantity ?? 0;
 
   const changeQuantity = useCallback(
