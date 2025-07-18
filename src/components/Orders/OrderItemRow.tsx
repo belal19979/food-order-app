@@ -1,7 +1,12 @@
+"use client";
+
 import { Button, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import { OrderItem } from "@/types/order";
+import { useCart } from "@/context";
 export function OrderItemRow({ item }: { item: OrderItem }) {
+  const { addToCart } = useCart();
+
   return (
     <Box
       sx={{
@@ -40,7 +45,11 @@ export function OrderItemRow({ item }: { item: OrderItem }) {
         </Typography>
       </Box>
 
-      <Button variant="contained" size="small">
+      <Button
+        variant="contained"
+        size="small"
+        onClick={() => addToCart(item.food.slug)}
+      >
         Buy again
       </Button>
     </Box>

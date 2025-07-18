@@ -52,7 +52,7 @@ export function CartProvider({
   }, [user, authLoading, setStoredCart]);
 
   const addToCart = useCallback(
-    (slug: string) => {
+    (slug: string, quantity = 1) => {
       const foodItem = foodItemsBySlug[slug];
       if (!foodItem) {
         throw new Error(`CartProvider: tried to add unknown slug "${slug}"`);
@@ -60,11 +60,17 @@ export function CartProvider({
       const exists = cart.find((item) => item.food.slug === slug);
       console.log("exits", exists);
       if (exists) {
-        dispatch({ type: "update", slug, quantity: exists.quantity + 1 });
-        if (user) upsertCart(foodItem.id, exists.quantity + 1);
+        const newQty = exists.quantity + quantity;
+
+        dispatch({
+          type: "update",
+          slug,
+          quantity: newQty,
+        });
+        if (user) upsertCart(foodItem.id, newQty);
       } else {
-        dispatch({ type: "add", item: { food: foodItem, quantity: 1 } });
-        if (user) upsertCart(foodItem.id, 1);
+        dispatch({ type: "add", item: { food: foodItem, quantity } });
+        if (user) upsertCart(foodItem.id, quantity);
       }
     },
     [dispatch, foodItemsBySlug, user, cart]

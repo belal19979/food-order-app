@@ -1,3 +1,5 @@
+"use client";
+
 import { Order } from "@/types/order";
 import { Container, Stack, Typography } from "@mui/material";
 import { OrderCard } from "./OrderCard";
@@ -11,7 +13,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
     );
   }
   return (
-    <Container maxWidth="sm" sx={{ py: 6 }}>
+    <Container maxWidth="md" sx={{ py: 6 }}>
       <Stack spacing={4}>
         {orders.map((order) => (
           <OrderCard key={order.id} order={order} />

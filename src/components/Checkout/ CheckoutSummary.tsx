@@ -29,7 +29,7 @@ export const CheckoutSummary = ({
         <Stack direction="column" spacing={2} mt={3}>
           {cart
             .filter(({ quantity }) => quantity > 0)
-            .map(({ slug, price, name, quantity }) => (
+            .map(({ food: { slug, price, name }, quantity }) => (
               <SummaryRow
                 key={slug}
                 label={`${name} × ${quantity}`}

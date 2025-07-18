@@ -13,7 +13,7 @@ export type LocalCartItem = {
 };
 export interface CartContextType {
   cart: LocalCartItem[];
-  addToCart: (slug: string) => void;
+  addToCart: (slug: string, quantity?: number) => void;
   updateQuantity: (slug: string, quantity: number) => void;
   removeFromCart: (slug: string) => void;
   clearCart: () => void;

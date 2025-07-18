@@ -28,7 +28,7 @@ export function useCheckout() {
       customerEmail: data.email,
       deliveryAddress: data.address,
       deliveryNote: data.deliveryNote,
-      items: cart.map(({ id, quantity }) => ({
+      items: cart.map(({ food: { id }, quantity }) => ({
         foodId: id,
         quantity,
       })),
