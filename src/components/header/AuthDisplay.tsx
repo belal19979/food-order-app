@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Box,
@@ -10,11 +11,12 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-
 import LogoutIcon from "@mui/icons-material/Logout";
-import { redirect } from "next/navigation";
+
+import Link from "next/link";
 
 export function AuthDisplay({ user }: { user: { email: string } }) {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -25,7 +27,7 @@ export function AuthDisplay({ user }: { user: { email: string } }) {
   };
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
-    redirect("/login");
+    router.replace("/login");
   };
 
   return (
@@ -69,10 +71,11 @@ export function AuthDisplay({ user }: { user: { email: string } }) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+        <MenuItem component={Link} href="/account">
+          <Avatar /> Account
         </MenuItem>
-        <MenuItem onClick={() => redirect("/orders")}>
+
+        <MenuItem component={Link} href="/orders">
           <Avatar /> My Orders
         </MenuItem>
         <Divider />

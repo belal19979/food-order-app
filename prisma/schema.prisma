@@ -17,7 +17,7 @@ datasource db {
 model FoodItem {
   id          String   @id @default(cuid())
   name        String
-  slug        String  @unique
+  slug        String   @unique @default("")
   description String
   price       Decimal
   category    String
@@ -41,7 +41,7 @@ model Order {
   total          Decimal
   createdAt      DateTime   @default(now())
 
-  user           User       @relation("UserOrders",fields:[userId], references:[id])
+  user           User       @relation("UserOrders",fields:[userId], references:[id],onDelete: Cascade)
   userId         String
 
   items          OrderItem[]
@@ -51,7 +51,7 @@ model OrderItem {
   id       String   @id @default(cuid())
   order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId  String
-  food     FoodItem @relation(fields: [foodId], references: [id])
+  food     FoodItem @relation(fields: [foodId], references: [id],onDelete: Cascade)
   foodId   String
   quantity Int
   price    Decimal  
@@ -60,6 +60,7 @@ model OrderItem {
 model User {
   id       String   @id @default(cuid())
   email    String   @unique
+  name    String?
   hash     String      
   createdAt      DateTime   @default(now())
   orders Order[] @relation("UserOrders")

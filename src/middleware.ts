@@ -6,8 +6,8 @@ export function middleware(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
 
   if (
-    ["/cart", "/checkout", "/order-confirmation", "/orders"].some((p) =>
-      pathname.startsWith(p)
+    ["/cart", "/checkout", "/order-confirmation", "/orders", "/account"].some(
+      (p) => pathname.startsWith(p)
     ) &&
     !token
   ) {
@@ -24,5 +24,6 @@ export const config = {
     "/checkout/:path*",
     "/order-confirmation/:path*",
     "/orders/:path*",
+    "/account/:path*",
   ],
 };

@@ -2,6 +2,7 @@ export * from "./header/Header";
 export * from "./ErrorMessage";
 export * from "./AppLayout";
 export * from "./AuthProvider";
+export * from "./account/AccountPage";
 
 export * from "./FoodCard/FoodCard";
 export * from "./MenuItemDetail/MenuItemDetail";
