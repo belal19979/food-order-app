@@ -46,8 +46,19 @@ export function OrderItemRow({ item }: { item: OrderItem }) {
       </Box>
 
       <Button
-        variant="contained"
+        variant="outlined"
+        color="secondary"
         size="small"
+        sx={{
+          px: 2,
+          py: 1,
+          transition: "transform 0.2s, background-color 0.2s",
+          "&:hover": {
+            backgroundColor: "primary.main",
+            color: "primary.contrastText",
+            transform: "scale(1.05)",
+          },
+        }}
         onClick={() => addToCart(item.food.slug)}
       >
         Buy again

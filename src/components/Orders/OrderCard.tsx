@@ -13,35 +13,42 @@ export function OrderCard({ order }: { order: Order }) {
   };
   return (
     <Paper key={order.id} variant="outlined" sx={{ px: 2 }}>
-      <Grid
-        container
-        alignItems="center"
-        spacing={{ xs: 1, sm: 10 }}
-        sx={{ my: 2 }}
-      >
-        <Grid size={{ xs: 12, sm: 3 }} sx={{ textAlign: "left" }}>
+      <Grid container alignItems="center" spacing={2} sx={{ my: 2 }}>
+        <Grid size={{ xs: 6, sm: 4 }}>
+          <Typography variant="subtitle1" fontWeight={600}>
+            Order #{order.id.slice(-6)}
+          </Typography>
+        </Grid>
+        <Grid size={{ xs: 6, sm: 4 }}>
+          <Typography variant="body1">
+            Total: €{order.total.toFixed(2)}
+          </Typography>
+        </Grid>
+        <Grid
+          size={{ xs: 12, sm: 4 }}
+          sx={{ textAlign: { xs: "left", sm: "right" } }}
+        >
           <Button
             size="small"
             variant="contained"
             color="secondary"
+            sx={{
+              px: 2,
+              py: 1,
+              transition: "transform 0.2s, background-color 0.2s",
+              "&:hover": {
+                backgroundColor: "primary.main",
+                transform: "scale(1.05)",
+              },
+            }}
             onClick={reorder}
           >
             Re-order
           </Button>
         </Grid>
-        <Grid size={{ xs: 12, sm: 3 }}>
-          <Typography variant="subtitle1" fontWeight="bold">
-            Order #{order.id.slice(-6)}
-          </Typography>
-        </Grid>
-        <Grid size={{ xs: 6, sm: 3 }}>
+        <Grid size={{ xs: 12 }}>
           <Typography variant="body2" color="text.secondary">
             Placed on {order.createdAt}
-          </Typography>
-        </Grid>
-        <Grid size={{ xs: 6, sm: 3 }}>
-          <Typography variant="body2">
-            Total: €{order.total.toFixed(2)}
           </Typography>
         </Grid>
       </Grid>

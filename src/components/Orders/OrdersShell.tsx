@@ -13,7 +13,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
     );
   }
   return (
-    <Container maxWidth="md" sx={{ py: 6 }}>
+    <Container maxWidth="sm" sx={{ py: 6 }}>
       <Stack spacing={4}>
         {orders.map((order) => (
           <OrderCard key={order.id} order={order} />
