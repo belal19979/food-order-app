@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     foodId: string;
     quantity: number;
   };
-  console.log("recieved quantity", quantity);
   const user = await getCurrentUser();
   if (!user) return NextResponse.error();
 
@@ -36,7 +35,6 @@ export async function DELETE(req: Request) {
   if (!user) return NextResponse.error();
 
   const body = await req.json().catch(() => ({}));
-  // if they passed a foodId, just delete that one:
   if (body.foodId) {
     await prisma.cartItem.delete({
       where: {
@@ -44,7 +42,6 @@ export async function DELETE(req: Request) {
       },
     });
   } else {
-    // otherwise clear *all* items for this user
     await prisma.cartItem.deleteMany({
       where: { userId: user.id },
     });
