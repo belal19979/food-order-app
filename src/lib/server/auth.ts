@@ -42,3 +42,12 @@ export async function getCurrentUser() {
     select: { id: true, email: true, name: true, createdAt: true },
   });
 }
+
+export async function updateCurrentUser(data: { name: string }) {
+  const me = await getCurrentUser();
+  if (!me) throw new Error("Not authenticated");
+  return prisma.user.update({
+    where: { id: me.id },
+    data,
+  });
+}

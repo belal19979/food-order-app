@@ -5,7 +5,7 @@ export const ProfileDetailItem = ({
   value,
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
 }) => {
   return (
     <>
