@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Box, Paper, Typography } from "@mui/material";
 import { ProfileCardHeader } from "./ProfileCardHeader";
 import { ProfileDetailList } from "./ProfileDetailList";
@@ -8,12 +9,14 @@ import { CurrentUser } from "@/types/user";
 import { updateUserData } from "@/lib/api/user";
 
 export const ProfilePanel = ({ user }: { user: CurrentUser }) => {
+  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState({ name: user.name ?? "" });
 
   const handleSave = async () => {
     updateUserData(form);
     setIsEditing(false);
+    router.refresh();
   };
 
   return (

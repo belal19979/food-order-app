@@ -8,9 +8,7 @@ export async function GET() {
 
 export async function PATCH(request: Request) {
   const payload = await request.json();
-  console.log("payload", payload);
   const user = await updateCurrentUser(payload);
-  console.log("user", user);
 
   return NextResponse.json({ user });
 }
