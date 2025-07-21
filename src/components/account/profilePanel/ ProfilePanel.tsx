@@ -7,15 +7,18 @@ import { ProfileCardHeader } from "./ProfileCardHeader";
 import { ProfileDetailList } from "./ProfileDetailList";
 import { CurrentUser } from "@/types/user";
 import { updateUserData } from "@/lib/api/user";
+import { Toast } from "@/components/ui";
 
 export const ProfilePanel = ({ user }: { user: CurrentUser }) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
   const [form, setForm] = useState({ name: user.name ?? "" });
 
   const handleSave = async () => {
     updateUserData(form);
     setIsEditing(false);
+    setToastOpen(true);
     router.refresh();
   };
 
@@ -36,6 +39,7 @@ export const ProfilePanel = ({ user }: { user: CurrentUser }) => {
           }}
           onSave={handleSave}
           isEditing={isEditing}
+          disableSave={form.name.trim() === ""}
         />
         <ProfileDetailList
           form={form}
@@ -44,6 +48,12 @@ export const ProfilePanel = ({ user }: { user: CurrentUser }) => {
           user={user}
         />
       </Paper>
+      <Toast
+        open={toastOpen}
+        onClose={() => setToastOpen(false)}
+        severity="success"
+        message="Changes saved!"
+      />
     </Box>
   );
 };

@@ -3,11 +3,13 @@ import { Edit, Save, Cancel } from "@mui/icons-material";
 
 export const ProfileCardHeader = ({
   isEditing,
+  disableSave,
   onSave,
   onCancel,
   onStartEdit,
 }: {
   isEditing: boolean;
+  disableSave: boolean;
   onSave: () => void;
   onCancel: () => void;
   onStartEdit: () => void;
@@ -21,6 +23,7 @@ export const ProfileCardHeader = ({
             variant="contained"
             startIcon={<Save />}
             onClick={onSave}
+            disabled={disableSave}
             sx={{ mr: 1 }}
           >
             Save

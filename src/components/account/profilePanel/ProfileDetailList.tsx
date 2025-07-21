@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Box, Grid, TextField } from "@mui/material";
 import { ProfileDetailItem } from "./ProfileDetailItem";
 import { CurrentUser } from "@/types/user";
@@ -14,7 +14,10 @@ export const ProfileDetailList = ({
   form: { name: string };
   onFormChange: (form: { name: string }) => void;
 }) => {
-  const { name, email, createdAt } = user;
+  const [touched, setTouched] = useState(false);
+  const nameError = form.name.trim() === "";
+
+  const { email, createdAt } = user;
   const formattedDate = useMemo(
     () =>
       createdAt.toLocaleDateString(undefined, {
@@ -35,6 +38,11 @@ export const ProfileDetailList = ({
               <TextField
                 value={form.name}
                 onChange={(e) => onFormChange({ name: e.target.value })}
+                onBlur={() => setTouched(true)}
+                error={touched && nameError}
+                helperText={
+                  touched && nameError ? "Name is required" : undefined
+                }
               />
             ) : (
               form.name || <em>Not set</em>
