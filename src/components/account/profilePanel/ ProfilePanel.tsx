@@ -50,9 +50,9 @@ export const ProfilePanel = ({ user }: { user: CurrentUser }) => {
       </Paper>
       <Toast
         open={toastOpen}
-        onClose={() => setToastOpen(false)}
         severity="success"
         message="Changes saved!"
+        onClose={() => setToastOpen(false)}
       />
     </Box>
   );

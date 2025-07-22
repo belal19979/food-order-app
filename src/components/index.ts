@@ -3,6 +3,7 @@ export * from "./ErrorMessage";
 export * from "./AppLayout";
 export * from "./AuthProvider";
 export * from "./account/AccountPage";
+export * from "./account/ChangePasswordPanel/ChangePasswordPanel";
 
 export * from "./FoodCard/FoodCard";
 export * from "./MenuItemDetail/MenuItemDetail";

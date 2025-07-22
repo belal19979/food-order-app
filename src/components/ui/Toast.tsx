@@ -2,14 +2,14 @@ import { Snackbar, Alert, AlertColor } from "@mui/material";
 
 export const Toast = ({
   open,
-  onClose,
   severity,
   message,
+  onClose,
 }: {
   open: boolean;
-  onClose: () => void;
   severity: AlertColor;
   message: string;
+  onClose: () => void;
 }) => {
   return (
     <Snackbar

@@ -39,7 +39,7 @@ export async function getCurrentUser() {
   const userId = payload.userId;
   return await prisma.user.findUnique({
     where: { id: userId },
-    select: { id: true, email: true, name: true, createdAt: true },
+    select: { id: true, email: true, name: true, createdAt: true, hash: true },
   });
 }
 
@@ -49,5 +49,12 @@ export async function updateCurrentUser(data: { name: string }) {
   return prisma.user.update({
     where: { id: me.id },
     data,
+  });
+}
+
+export async function updateUserPassword(userId: string, hash: string) {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { hash },
   });
 }
