@@ -6,8 +6,9 @@ import { prisma } from "../prisma";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-export function withAuthCookie(userId: string, response: NextResponse) {
-  const token = jwt.sign({ userId }, JWT_SECRET, {
+export async function withAuthCookie(userId: string, response: NextResponse) {
+  const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+  const token = jwt.sign({ userId, version: user.tokenVersion }, JWT_SECRET, {
     expiresIn: "7d",
   });
   response.cookies.set("authToken", token, {
@@ -37,10 +38,26 @@ export async function getCurrentUser() {
   if (!token) return null;
   const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
   const userId = payload.userId;
-  return await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
-    select: { id: true, email: true, name: true, createdAt: true, hash: true },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      createdAt: true,
+      hash: true,
+      tokenVersion: true,
+    },
   });
+
+  // if the token’s version doesn’t match the DB, it’s invalid
+  if (payload.version !== user.tokenVersion) {
+    return null;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { tokenVersion, ...rest } = user;
+
+  return rest;
 }
 
 export async function updateCurrentUser(data: { name: string }) {
@@ -55,6 +72,6 @@ export async function updateCurrentUser(data: { name: string }) {
 export async function updateUserPassword(userId: string, hash: string) {
   return prisma.user.update({
     where: { id: userId },
-    data: { hash },
+    data: { hash, tokenVersion: { increment: 1 } },
   });
 }

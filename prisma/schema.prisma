@@ -62,6 +62,7 @@ model User {
   email    String   @unique
   name    String?
   hash     String      
+  tokenVersion  Int         @default(0)      
   createdAt      DateTime   @default(now())
   orders Order[] @relation("UserOrders")
   favorites Favorite[]

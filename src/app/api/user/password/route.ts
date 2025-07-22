@@ -25,5 +25,9 @@ export async function PATCH(req: Request) {
 
   await updateUserPassword(me.id, newHash);
 
-  return NextResponse.json({ message: "Password changed" });
+  const res = NextResponse.json({
+    message: "Password changed—please log in again",
+  });
+  res.cookies.delete("authToken");
+  return res;
 }

@@ -18,7 +18,10 @@ export async function updateUserPassword(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ currentPassword, newPassword }),
   });
-  if (!res.ok) throw new Error(res.error || "Unknown error");
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Unknown error");
+  }
 
   const body = await res.json();
   return body;

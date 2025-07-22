@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { updateUserPassword } from "@/lib/api/user";
 import type { AlertColor } from "@mui/material";
 
@@ -8,6 +10,7 @@ export const useChangePassword = (
   const [newPassword, setNewPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const canSubmit = currentPassword !== "" && newPassword !== "";
 
@@ -20,8 +23,8 @@ export const useChangePassword = (
 
     try {
       const res = await updateUserPassword(currentPassword, newPassword);
-
       showToast("success", res.message);
+      router.push("/login");
       setCurrentPassword("");
       setNewPassword("");
     } catch (err: unknown) {
