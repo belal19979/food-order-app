@@ -5,7 +5,6 @@ import { AuthForm } from "./AuthForm";
 
 export const Login = ({ callbackUrl }: { callbackUrl: string }) => {
   const login = useAuthHandler("login", callbackUrl);
-  console.log("callbackUrl", callbackUrl);
 
   return (
     <AuthForm

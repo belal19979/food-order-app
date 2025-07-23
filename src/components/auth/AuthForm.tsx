@@ -7,8 +7,9 @@ import {
 } from "@toolpad/core/SignInPage";
 
 import theme from "@/theme/theme";
-import { Typography, Link } from "@mui/material";
+import { Typography, Link, Button } from "@mui/material";
 import NextLink from "next/link";
+import { redirect } from "next/navigation";
 
 export interface AuthFormProps {
   signIn: (provider: AuthProvider, formData: FormData) => Promise<AuthResponse>;
@@ -31,6 +32,10 @@ export const AuthForm = ({
 }: AuthFormProps) => {
   return (
     <AppProvider theme={theme}>
+      <Button variant="contained" onClick={redirect("/forgot-password")}>
+        forgot password
+      </Button>
+
       <SignInPage
         signIn={signIn}
         providers={providers}
