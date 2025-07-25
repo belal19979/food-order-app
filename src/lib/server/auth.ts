@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "../prisma";
 import { randomBytes } from "node:crypto";
-import { sendResetEmail } from "../email";
+import { sendResetEmail } from "../sendResetEmail";
 import dayjs from "dayjs";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -82,7 +82,6 @@ export async function updateUserPassword(userId: string, hash: string) {
 export async function requestPasswordReset(email: string) {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) return;
-  console.log("userFound");
   //remove any previous unused token //
   await prisma.passwordResetToken.deleteMany({
     where: { userId: user.id, used: false },
@@ -100,6 +99,6 @@ export async function requestPasswordReset(email: string) {
       expiresAt: dayjs().add(60, "minute").toDate(), //
     },
   });
-  const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?tokens=${token}`;
+  const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${token}`;
   await sendResetEmail(user.email, resetUrl); //
 }
