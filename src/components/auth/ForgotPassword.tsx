@@ -1,57 +1,86 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+} from "@mui/material";
 
 type FormData = { email: string };
 
 export function ForgotPassword() {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { control, handleSubmit } = useForm<FormData>({
+    defaultValues: { email: "" },
+  });
+
   const router = useRouter();
   const qs = useSearchParams();
-  const sent = qs.get("sent");
+  const sent = qs?.get("sent");
 
   const onSubmit = async (data: FormData) => {
-    console.log("data onSubmit", data);
     await fetch("/api/auth/request-password-reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: data.email }),
     });
-    // router.replace("/auth/forgot-password?sent=1");
+
+    router.replace("/forgot-password?sent=1");
   };
 
   return (
-    <main className="flex flex-col items-center justify-center p-4">
-      <h1 className="text-2xl font-semibold mb-4">Forgot your password?</h1>
-
-      {sent ? (
-        <p className="max-w-sm text-center">
-          If an account exists for that e-mail, we’ve sent a link to reset your
-          password. Check your inbox!
-        </p>
-      ) : (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-3 w-full max-w-sm"
-        >
-          <label className="flex flex-col gap-1">
-            E-mail
-            <input
-              type="email"
-              required
-              {...register("email", { required: true })}
-              className="border rounded px-2 py-1"
-            />
-          </label>
-          <button
-            type="submit"
-            className="rounded bg-blue-600 text-white py-2 hover:bg-blue-700"
+    <Container maxWidth="xs">
+      <Box
+        sx={{
+          mt: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* */}
+        <Typography component="h1" variant="h5" gutterBottom>
+          Forgot your password?
+        </Typography>
+        {sent ? (
+          <Alert severity="info" sx={{ mt: 2 }}>
+            If an account exists for that e-mail, we’ve sent a link to reset
+            your password. Check your inbox!
+          </Alert>
+        ) : (
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{ mt: 3, width: "100%" }}
           >
-            Send reset link
-          </button>
-        </form>
-      )}
-    </main>
+            <Controller
+              name="email"
+              control={control}
+              rules={{ required: "E-mail is required" }}
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  label="E-mail Address"
+                  type="email"
+                  fullWidth
+                  required
+                  error={!!fieldState.error}
+                  helperText={fieldState.error?.message}
+                />
+              )}
+            />
+
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
+              Send reset link
+            </Button>
+          </Box>
+        )}
+      </Box>
+    </Container>
   );
 }

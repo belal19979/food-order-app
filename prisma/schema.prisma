@@ -67,7 +67,7 @@ model User {
   orders Order[] @relation("UserOrders")
   favorites Favorite[]
   cart CartItem[] 
-  passwordResetToken PasswordResetToken[]
+  passwordResetToken PasswordResetToken[] //
 }
 
 model Favorite {
@@ -90,7 +90,7 @@ model CartItem {
 }
 
 model PasswordResetToken {
-  id        Int      @id @default(autoincrement()) //
+  id        Int      @id @default(autoincrement()) 
   token     String   @unique
   expiresAt DateTime
   used      Boolean  @default(false)

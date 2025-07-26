@@ -89,16 +89,14 @@ export async function requestPasswordReset(email: string) {
 
   //create a new token
   const token = randomBytes(32).toString("hex");
-  // ▶ OPTION B — store a SHA-256 hash (safer)
-  //const storedToken = createHash("sha256").update(rawToken).digest("hex");
 
   await prisma.passwordResetToken.create({
     data: {
       token,
       userId: user.id,
-      expiresAt: dayjs().add(60, "minute").toDate(), //
+      expiresAt: dayjs().add(60, "minute").toDate(),
     },
   });
   const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${token}`;
-  await sendResetEmail(user.email, resetUrl); //
+  await sendResetEmail(user.email, resetUrl);
 }
