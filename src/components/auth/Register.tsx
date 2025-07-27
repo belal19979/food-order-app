@@ -4,7 +4,7 @@ import { AuthForm } from "./AuthForm";
 import { useAuthHandler } from "@/hooks";
 
 export const Register = () => {
-  const register = useAuthHandler("register");
+  const register = useAuthHandler("register", "/login");
 
   return (
     <AuthForm

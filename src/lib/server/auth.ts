@@ -82,6 +82,7 @@ export async function updateUserPassword(userId: string, hash: string) {
 export async function requestPasswordReset(email: string) {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) return;
+
   //remove any previous unused token //
   await prisma.passwordResetToken.deleteMany({
     where: { userId: user.id, used: false },

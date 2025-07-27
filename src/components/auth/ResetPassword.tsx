@@ -23,7 +23,7 @@ export const ResetPassword = () => {
       method: "POST",
       body: JSON.stringify({ token, newPassword }),
     });
-    if (res.ok) router.push("/auth/login?reset=success");
+    if (res.ok) router.push("/login?reset=success");
   };
   const pw = watch("newPassword");
   const cpw = watch("confirmPassword");

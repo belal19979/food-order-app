@@ -1,8 +1,8 @@
 import { getGmailTransporter } from "./mailer";
 
 export async function sendResetEmail(to: string, link: string) {
-  console.log("link", link);
   const transporter = await getGmailTransporter();
+
   await transporter.sendMail({
     from: `"My App" <${process.env.GMAIL_USER}>`,
     to,

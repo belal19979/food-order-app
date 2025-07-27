@@ -7,15 +7,16 @@ import {
 } from "@toolpad/core/SignInPage";
 
 import theme from "@/theme/theme";
-import { Typography, Link, Button } from "@mui/material";
+import { Typography, Link } from "@mui/material";
 import NextLink from "next/link";
-import { redirect } from "next/navigation";
 
 export interface AuthFormProps {
   signIn: (provider: AuthProvider, formData: FormData) => Promise<AuthResponse>;
   title: string;
   subtitleText: string;
   subtitleHref: string;
+  forgotPasswordText?: string;
+  forgotPasswordHref?: string;
   localeText?: Partial<Parameters<typeof SignInPage>[0]["localeText"]>;
 }
 
@@ -29,13 +30,11 @@ export const AuthForm = ({
   subtitleText,
   subtitleHref,
   localeText,
+  forgotPasswordText,
+  forgotPasswordHref,
 }: AuthFormProps) => {
   return (
     <AppProvider theme={theme}>
-      <Button variant="contained" onClick={redirect("/forgot-password")}>
-        forgot password
-      </Button>
-
       <SignInPage
         signIn={signIn}
         providers={providers}
@@ -54,16 +53,30 @@ export const AuthForm = ({
             </Typography>
           ),
           subtitle: () => (
-            <Typography align="center" sx={{ mb: 2 }}>
-              <Link
-                component={NextLink}
-                href={subtitleHref}
-                underline="hover"
-                sx={{ color: "primary.main" }}
-              >
-                {subtitleText}
-              </Link>
-            </Typography>
+            <>
+              <Typography align="center" sx={{ mb: 1 }}>
+                <Link
+                  component={NextLink}
+                  href={subtitleHref}
+                  underline="hover"
+                  sx={{ color: "primary.main" }}
+                >
+                  {subtitleText}
+                </Link>
+              </Typography>
+              {forgotPasswordHref && forgotPasswordText && (
+                <Typography align="center" sx={{ mb: 1 }}>
+                  <Link
+                    component={NextLink}
+                    href={forgotPasswordHref}
+                    underline="hover"
+                    sx={{ color: "primary.main" }}
+                  >
+                    {forgotPasswordText}
+                  </Link>
+                </Typography>
+              )}
+            </>
           ),
         }}
       />
