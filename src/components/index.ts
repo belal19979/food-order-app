@@ -2,7 +2,7 @@ export * from "./header/Header";
 export * from "./ErrorMessage";
 export * from "./AppLayout";
 export * from "./AuthProvider";
-export * from "./account/AccountPage";
+export * from "./account";
 export * from "./account/ChangePasswordPanel/ChangePasswordPanel";
 
 export * from "./FoodCard/FoodCard";

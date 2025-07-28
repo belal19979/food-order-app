@@ -6,7 +6,9 @@ export const FavoritesPanel = ({ foods }: { foods: FoodItem[] }) => {
   return (
     <Grid container component="section" sx={{ width: "100%" }} spacing={3}>
       <Grid size={{ xs: 12 }}>
-        <Typography variant="h4">Your Favorites</Typography>
+        <Typography variant="h4" align="center" mb={3}>
+          Your Favorites
+        </Typography>
       </Grid>
       {foods.map((item) => {
         return (

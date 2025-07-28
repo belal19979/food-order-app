@@ -21,7 +21,9 @@ export const ChangePasswordPanel = () => {
 
   return (
     <Box>
-      <Typography variant="h4">Change Password</Typography>
+      <Typography align="center" mb={3} variant="h4">
+        Change Password
+      </Typography>
       <ChangePasswordForm
         currentPassword={currentPassword}
         newPassword={newPassword}

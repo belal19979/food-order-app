@@ -74,10 +74,6 @@ export function AuthDisplay({ user }: { user: { email: string } }) {
         <MenuItem component={Link} href="/account">
           <Avatar /> Account
         </MenuItem>
-
-        <MenuItem component={Link} href="/account/orders">
-          <Avatar /> My Orders
-        </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>

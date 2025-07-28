@@ -1,4 +1,4 @@
-import { FavoritesPanel } from "@/components/account/FavoritesPanel/FavoritesPanel";
+import { FavoritesPanel } from "@/components/account/FavoritesPanel";
 import { getFavoritesForCurrentUser } from "@/lib/server/favorites";
 import { FoodItem } from "@/types/food";
 
