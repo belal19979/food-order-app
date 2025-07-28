@@ -75,7 +75,7 @@ export function AuthDisplay({ user }: { user: { email: string } }) {
           <Avatar /> Account
         </MenuItem>
 
-        <MenuItem component={Link} href="/orders">
+        <MenuItem component={Link} href="/account/orders">
           <Avatar /> My Orders
         </MenuItem>
         <Divider />

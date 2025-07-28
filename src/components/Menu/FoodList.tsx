@@ -7,7 +7,7 @@ export function FoodList({ foodItems }: { foodItems: FoodItem[] }) {
     <Grid container component="section" sx={{ width: "100%" }} spacing={3}>
       {foodItems.map((item) => (
         <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
-          <FoodCard {...item} />
+          <FoodCard foodItem={item} />
         </Grid>
       ))}
     </Grid>

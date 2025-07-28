@@ -7,7 +7,7 @@ import { FoodImage } from "./FoodImage";
 import { FoodCardContent } from "./FoodCardContent";
 import { FoodCardActions } from "./FoodCardActions";
 
-export function FoodCard(foodItem: FoodItem) {
+export function FoodCard({ foodItem }: { foodItem: FoodItem }) {
   const { id, slug, name, price, description, image } = foodItem;
   return (
     <Card sx={{ width: "100%", maxWidth: 320 }}>

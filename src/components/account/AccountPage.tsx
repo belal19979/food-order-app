@@ -11,7 +11,7 @@ export const AccountPage = ({ user }: { user: CurrentUser }) => {
           <ListItemButton component={Link} href="/account">
             <ListItemText primary="Profile" />
           </ListItemButton>
-          <ListItemButton component={Link} href="/orders">
+          <ListItemButton component={Link} href="/account/orders">
             <ListItemText primary="My Orders" />
           </ListItemButton>
           <ListItemButton component={Link} href="/account/favorites">
