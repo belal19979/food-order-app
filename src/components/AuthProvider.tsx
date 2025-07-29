@@ -8,11 +8,10 @@ import {
   ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
-
-type User = { id: string; email: string } | null;
+import { CurrentUser } from "@/types/user";
 
 interface AuthContext {
-  user: User;
+  user: CurrentUser | null;
   loading: boolean;
   refresh: () => void;
 }
@@ -24,7 +23,7 @@ const AuthCtx = createContext<AuthContext>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState(true);
   const pathname = usePathname();
 
@@ -32,8 +31,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     try {
       const res = await fetch("/api/user");
-      const data = await res.json();
-      setUser(data.user);
+      const { user: rawUser } = await res.json();
+      setUser({ ...rawUser, createdAt: new Date(rawUser.createdAt) });
     } catch {
       setUser(null);
     } finally {

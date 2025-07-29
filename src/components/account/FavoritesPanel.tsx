@@ -4,7 +4,12 @@ import { Grid, Typography } from "@mui/material";
 
 export const FavoritesPanel = ({ foods }: { foods: FoodItem[] }) => {
   return (
-    <Grid container component="section" sx={{ width: "100%" }} spacing={3}>
+    <Grid
+      container
+      component="section"
+      sx={{ width: "100%", pl: 3 }}
+      spacing={3}
+    >
       <Grid size={{ xs: 12 }}>
         <Typography variant="h4" align="center" mb={3}>
           Your Favorites

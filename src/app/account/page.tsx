@@ -1,10 +1,10 @@
-import { getCurrentUser } from "@/lib/server/auth";
+"use client";
 import { ProfilePanel } from "@/components/account";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useAuth } from "@/components";
 
-import { redirect } from "next/navigation";
-
-export default async function Account() {
-  const user = await getCurrentUser();
-  if (!user) redirect("/login");
-  return <ProfilePanel user={user} />;
+export default function Account() {
+  const { user, loading } = useAuth();
+  if (loading) return <CircularProgress />;
+  return <ProfilePanel user={user!} />;
 }

@@ -19,7 +19,7 @@ export const FoodCardActions = ({
   };
 
   return (
-    <CardActions>
+    <CardActions sx={{ mt: "auto" }}>
       <Box
         display="flex"
         justifyContent="space-between"
