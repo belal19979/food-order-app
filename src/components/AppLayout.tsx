@@ -1,6 +1,12 @@
 "use client";
 
-import { ThemeProvider, CssBaseline, Container, Box } from "@mui/material";
+import {
+  ThemeProvider,
+  CssBaseline,
+  Container,
+  Box,
+  Toolbar,
+} from "@mui/material";
 import { useState } from "react";
 
 import { AccountSidebar, Header } from "@/components";
@@ -30,6 +36,8 @@ export function AppLayout({
         <CartProvider foodItems={foodItems}>
           <FavoriteProvider>
             <Header showMenuButton={true} onMenuClick={toggleSidebar} />
+            <Toolbar />
+
             <Box sx={{ display: isAccount ? "flex" : "block" }}>
               {isAccount && (
                 <AccountSidebar

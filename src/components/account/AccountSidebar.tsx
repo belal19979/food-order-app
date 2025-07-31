@@ -10,6 +10,7 @@ import {
   Toolbar,
 } from "@mui/material";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -20,6 +21,8 @@ export function AccountSidebar({
   mobileOpen: boolean;
   onClose: () => void;
 }) {
+  const pathName = usePathname();
+
   const links = [
     { href: "/account", title: "Profile" },
     { href: "/account/orders", title: "My Orders" },
@@ -32,7 +35,12 @@ export function AccountSidebar({
       <Divider />
       <List>
         {links.map(({ href, title }) => (
-          <ListItemButton key={href} component={Link} href={href}>
+          <ListItemButton
+            key={href}
+            component={Link}
+            href={href}
+            selected={href === pathName}
+          >
             <ListItemText primary={title} />
           </ListItemButton>
         ))}
