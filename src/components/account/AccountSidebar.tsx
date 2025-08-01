@@ -24,7 +24,7 @@ export function AccountSidebar({
   const pathName = usePathname();
 
   const links = [
-    { href: "/account", title: "Profile" },
+    { href: "/account/profile", title: "Profile" },
     { href: "/account/orders", title: "My Orders" },
     { href: "/account/favorites", title: "Favorites" },
     { href: "/account/password", title: "Change Password" },
@@ -39,7 +39,7 @@ export function AccountSidebar({
             key={href}
             component={Link}
             href={href}
-            selected={href === pathName}
+            selected={pathName?.startsWith(href)}
           >
             <ListItemText primary={title} />
           </ListItemButton>

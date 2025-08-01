@@ -6,19 +6,24 @@ import { OrderItemsTable } from "./OrderItemsTable";
 import { OrderDetailsHeader } from "./OrderDetailsHeader";
 import { DeliveryNotes } from "./DeliveryNotes";
 import { OrderDetailsButtons } from "./OrderDetailsButtons";
+import { OrderDetailsBreadcrumbs } from "./OrderDetailsBreadcrumbs";
 
 export const OrderDetailsPage = ({ order }: { order: Order }) => {
   return (
-    <Container maxWidth="md">
-      <Stack direction="column" spacing={2} divider={<Divider />}>
+    <Container maxWidth="md" sx={{ py: 6 }}>
+      <OrderDetailsBreadcrumbs orderId={order.id} />
+      <Typography variant="h4">Order Details</Typography>
+      <Stack pt={3} direction="column" spacing={2} divider={<Divider />}>
         <OrderDetailsHeader id={order.id} createdAt={order.createdAt} />
-        <OrderDetailsButtons />
+        <OrderDetailsButtons order={order} />
+
         <Stack mt={4}>
           <Typography variant="h6" gutterBottom>
             Items Ordered:
           </Typography>
           <OrderItemsTable items={order.items} />
         </Stack>
+
         <DeliveryNotes
           recipient={order.customerName}
           phone={order.customerPhone}

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 export const OrderItemsTable = ({ items }: { items: OrderItem[] }) => {
   return (
-    <TableContainer component={Paper} elevation={1}>
+    <TableContainer component={Paper} variant="outlined">
       <Table>
         <TableHead>
           <TableRow>

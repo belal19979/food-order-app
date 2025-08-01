@@ -58,7 +58,6 @@ export function CartProvider({
         throw new Error(`CartProvider: tried to add unknown slug "${slug}"`);
       }
       const exists = cart.find((item) => item.food.slug === slug);
-      console.log("exits", exists);
       if (exists) {
         const newQty = exists.quantity + quantity;
 
