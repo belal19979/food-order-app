@@ -1,7 +1,7 @@
 import { Stack, Typography, Divider, Button } from "@mui/material";
 import Link from "next/link";
 
-import { CartTotal } from "./CartTotal";
+import { PriceTotal } from "./PriceTotal";
 import { useCartSummary } from "@/hooks";
 import { SummaryRow } from "@/components/ui";
 
@@ -17,7 +17,7 @@ export const CartSummary = () => {
         <SummaryRow label="Tax" value={tax} />
         <Divider />
 
-        <CartTotal total={total} />
+        <PriceTotal total={total} />
       </Stack>
       {subtotal > 0 ? (
         <Link href="/checkout">

@@ -20,7 +20,7 @@ export type Order = {
   tax: number;
   total: number;
 
-  createdAt?: string;
+  createdAt: string;
   items: OrderItem[];
 };
 

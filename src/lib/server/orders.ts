@@ -55,3 +55,10 @@ export async function getOrdersForUser(userId: string) {
     orderBy: { createdAt: "desc" },
   });
 }
+
+export async function getOrderForUser(orderId: string, userId: string) {
+  return prisma.order.findUnique({
+    where: { id: orderId, userId },
+    include: { items: { include: { food: true } } },
+  });
+}

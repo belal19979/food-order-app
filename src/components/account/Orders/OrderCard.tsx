@@ -4,6 +4,7 @@ import { Order } from "@/types/order";
 import { Paper, Stack, Typography, Grid, Button } from "@mui/material";
 import { OrderItemRow } from "./OrderItemRow";
 import { useCart } from "@/context";
+import { redirect } from "next/navigation";
 
 export function OrderCard({ order }: { order: Order }) {
   const { addToCart } = useCart();
@@ -44,6 +45,12 @@ export function OrderCard({ order }: { order: Order }) {
             onClick={reorder}
           >
             Re-order
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => redirect(`orders/${order.id}`)}
+          >
+            order details
           </Button>
         </Grid>
         <Grid size={{ xs: 12 }}>
