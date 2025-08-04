@@ -4,3 +4,4 @@ export * from "./useCartSummary";
 export * from "./useCheckout";
 export * from "./useAuthHandler";
 export * from "./useToast";
+export * from "./usePagination";
