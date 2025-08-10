@@ -38,3 +38,11 @@ export type CreateOrderPayload = {
   deliveryNote?: string;
   items: CreateOrderItem[];
 };
+
+export enum OrderStatus {
+  PENDING = "PENDING",
+  PROCESSING = "PROCESSING",
+  SHIPPED = "SHIPPED",
+  DELIVERED = "DELIVERED",
+  CANCELLED = "CANCELLED",
+}

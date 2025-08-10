@@ -27,6 +27,14 @@ model FoodItem {
   cart CartItem[]
 
 }
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
 
 model Order {
   id             String     @id @default(cuid())
@@ -41,10 +49,14 @@ model Order {
   total          Decimal
   createdAt      DateTime   @default(now())
 
+  status         OrderStatus @default(PENDING)
+  statusUpdatedAt DateTime   @default(now())
+
   user           User       @relation("UserOrders",fields:[userId], references:[id],onDelete: Cascade)
   userId         String
 
   items          OrderItem[]
+  @@index([status, createdAt])
 }
 
 model OrderItem {

@@ -1,6 +1,7 @@
 import { Prisma } from "@/generated/prisma";
 import { prisma } from "@/lib/prisma";
 import type { CreateOrderInput } from "@/lib/schemas/order";
+import { OrderStatus } from "@/types/order";
 
 export function computeTotals(
   lines: Array<{ price: Prisma.Decimal; quantity: number }>
@@ -60,5 +61,15 @@ export async function getOrderForUser(orderId: string, userId: string) {
   return prisma.order.findUnique({
     where: { id: orderId, userId },
     include: { items: { include: { food: true } } },
+  });
+}
+
+export async function updateOrderStatus(orderId: string) {
+  return await prisma.order.update({
+    where: { id: orderId },
+    data: {
+      status: OrderStatus.PROCESSING,
+      statusUpdatedAt: new Date(),
+    },
   });
 }

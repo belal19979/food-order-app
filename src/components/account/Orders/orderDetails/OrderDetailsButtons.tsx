@@ -7,7 +7,7 @@ import { ReorderButton } from "@/components/ui/ReorderButton";
 export const OrderDetailsButtons = ({ order }: { order: Order }) => {
   return (
     <Stack direction="row" justifyContent="space-between">
-      <BackButton text="Back to My Orders" href="/account/orders"></BackButton>
+      <BackButton text="Back to My Orders" href="/account/orders" />
       <ReorderButton order={order} />
     </Stack>
   );
