@@ -26,6 +26,7 @@ export function serializeOrder(raw: RawOrderWithItems): UIOrder {
     customerEmail: raw.customerEmail ?? "",
     deliveryAddress: raw.deliveryAddress,
     deliveryNote: raw.deliveryNote ?? "",
+    status: raw.status,
 
     // Convert each Decimal → number
     subtotal: raw.subtotal.toNumber(),

@@ -2,8 +2,9 @@ import { Typography, Grid, Button } from "@mui/material";
 import { ReorderButton } from "@/components/ui";
 import { Order } from "@/types/order";
 import { redirect } from "next/navigation";
+import { OrderStatusChip } from "@/components/ui";
 
-export const OrderCardContent = ({ order }: { order: Order }) => {
+export const OrderCardHeader = ({ order }: { order: Order }) => {
   return (
     <>
       <Grid size={{ xs: 6, sm: 4 }}>
@@ -12,15 +13,20 @@ export const OrderCardContent = ({ order }: { order: Order }) => {
         </Typography>
       </Grid>
       <Grid size={{ xs: 6, sm: 4 }}>
-        <Typography variant="body1">
-          Total: €{order.total.toFixed(2)}
-        </Typography>
+        <OrderStatusChip status={order.status} />
       </Grid>
       <Grid
         size={{ xs: 12, sm: 4 }}
         sx={{ textAlign: { xs: "left", sm: "right" } }}
       >
         <ReorderButton order={order} />
+      </Grid>
+      <Grid size={{ xs: 4 }}>
+        <Typography variant="body2" color="text.secondary">
+          Placed on {order.createdAt}
+        </Typography>
+      </Grid>
+      <Grid size={{ xs: 4 }}>
         <Button
           variant="contained"
           onClick={() => redirect(`orders/${order.id}`)}
@@ -28,9 +34,9 @@ export const OrderCardContent = ({ order }: { order: Order }) => {
           order details
         </Button>
       </Grid>
-      <Grid size={{ xs: 12 }}>
-        <Typography variant="body2" color="text.secondary">
-          Placed on {order.createdAt}
+      <Grid size={{ xs: 4 }}>
+        <Typography variant="body1">
+          Total: €{order.total.toFixed(2)}
         </Typography>
       </Grid>
     </>

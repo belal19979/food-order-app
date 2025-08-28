@@ -1,3 +1,5 @@
+import { OrderStatus } from "@/generated/prisma";
+
 export type OrderItem = {
   id: string;
   foodId: string;
@@ -22,6 +24,7 @@ export type Order = {
 
   createdAt: string;
   items: OrderItem[];
+  status: OrderStatus;
 };
 
 // The minimal shape the client must send when creating a new order.
@@ -38,11 +41,3 @@ export type CreateOrderPayload = {
   deliveryNote?: string;
   items: CreateOrderItem[];
 };
-
-export enum OrderStatus {
-  PENDING = "PENDING",
-  PROCESSING = "PROCESSING",
-  SHIPPED = "SHIPPED",
-  DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED",
-}

@@ -6,7 +6,7 @@ import { OrderItemRow } from "./OrderItemRow";
 
 import { usePagination } from "@/hooks";
 import { PaginationControls } from "@/components/ui";
-import { OrderCardContent } from "./OrderCardContent";
+import { OrderCardHeader } from "./OrderCardHeader";
 
 export function OrderCard({ order }: { order: Order }) {
   const {
@@ -20,7 +20,7 @@ export function OrderCard({ order }: { order: Order }) {
     <>
       <Paper key={order.id} variant="outlined" sx={{ px: 2 }}>
         <Grid container alignItems="center" spacing={2} sx={{ my: 2 }}>
-          <OrderCardContent order={order} />
+          <OrderCardHeader order={order} />
         </Grid>
 
         <Stack spacing={2}>

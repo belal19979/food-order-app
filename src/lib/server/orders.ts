@@ -1,7 +1,7 @@
 import { Prisma } from "@/generated/prisma";
 import { prisma } from "@/lib/prisma";
 import type { CreateOrderInput } from "@/lib/schemas/order";
-import { OrderStatus } from "@/types/order";
+import { OrderStatus } from "@/generated/prisma";
 
 export function computeTotals(
   lines: Array<{ price: Prisma.Decimal; quantity: number }>

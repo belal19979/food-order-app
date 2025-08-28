@@ -4,3 +4,4 @@ export * from "./FavoriteAction";
 export * from "./Toast";
 export * from "./PaginationControls";
 export * from "./ReorderButton";
+export * from "./OrderStatusChip";
