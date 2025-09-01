@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { OrderStatusChip } from "@/components/ui";
 
 export const OrderCardHeader = ({ order }: { order: Order }) => {
+  const cancelOrder = () => {};
   return (
     <>
       <Grid size={{ xs: 6, sm: 4 }}>
@@ -14,6 +15,11 @@ export const OrderCardHeader = ({ order }: { order: Order }) => {
       </Grid>
       <Grid size={{ xs: 6, sm: 4 }}>
         <OrderStatusChip status={order.status} />
+        {order.status === "PENDING" && (
+          <Button onClick={cancelOrder} variant="contained">
+            Cancel
+          </Button>
+        )}
       </Grid>
       <Grid
         size={{ xs: 12, sm: 4 }}
