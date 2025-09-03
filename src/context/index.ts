@@ -1,2 +1,2 @@
 export * from "./cart";
-export * from "./favorites/favoriteContext";
+export * from "./favorites/FavoriteProvider";

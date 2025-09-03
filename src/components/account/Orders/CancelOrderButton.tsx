@@ -8,23 +8,13 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { OrderStatus } from "@/generated/prisma";
-import { useToast } from "@/hooks";
-import { Toast } from "@/components/ui";
+import { useToast } from "@/context/toast/ToastProvider";
 
-export function CancelOrderButton({
-  orderId,
-  status,
-}: {
-  orderId: string;
-  status: OrderStatus;
-}) {
+export function CancelOrderButton({ orderId }: { orderId: string }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { toast, showToast, closeToast } = useToast();
+  const { showToast } = useToast();
   const router = useRouter();
-
-  if (status !== "PENDING") return null;
 
   const onConfirm = async () => {
     setLoading(true);
@@ -49,6 +39,7 @@ export function CancelOrderButton({
       showToast("success", "Order cancelled successfully.");
       setOpen(false);
       router.refresh();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       showToast("error", "Network error. Please try again.");
     } finally {
@@ -80,12 +71,6 @@ export function CancelOrderButton({
           </Button>
         </DialogActions>
       </Dialog>
-      <Toast
-        open={toast.open}
-        severity={toast.severity}
-        message={toast.message}
-        onClose={closeToast}
-      />
     </>
   );
 }

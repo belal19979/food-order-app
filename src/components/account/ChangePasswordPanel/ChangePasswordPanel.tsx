@@ -1,13 +1,12 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { Toast } from "@/components/ui";
-import { useToast } from "@/hooks";
+import { useToast } from "@/context/toast/ToastProvider";
 import { useChangePassword } from "./hooks/useChangePassword";
 import { ChangePasswordForm } from "./ChangePasswordForm";
 
 export const ChangePasswordPanel = () => {
-  const { toast, closeToast, showToast } = useToast();
+  const { showToast } = useToast();
 
   const {
     updatePassword,
@@ -32,12 +31,6 @@ export const ChangePasswordPanel = () => {
         onCurrentChange={setCurrentPassword}
         onNewChange={setNewPassword}
         onSubmit={updatePassword}
-      />
-      <Toast
-        open={toast.open}
-        severity={toast.severity}
-        message={toast.message}
-        onClose={closeToast}
       />
     </Box>
   );

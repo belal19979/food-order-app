@@ -15,9 +15,7 @@ export const OrderCardHeader = ({ order }: { order: Order }) => {
       </Grid>
       <Grid size={{ xs: 6, sm: 4 }}>
         <OrderStatusChip status={order.status} />
-        {order.status === "PENDING" && (
-          <CancelOrderButton orderId={order.id} status={order.status} />
-        )}
+        {order.status === "PENDING" && <CancelOrderButton orderId={order.id} />}
       </Grid>
       <Grid
         size={{ xs: 12, sm: 4 }}

@@ -13,7 +13,8 @@ import { AccountSidebar, Header } from "@/components";
 import theme from "@/theme/theme";
 import { CartProvider } from "@/context/cart/CartProvider";
 import { FoodItemsProvider } from "@/context/foodItemsContext";
-import { FavoriteProvider } from "@/context/favorites/favoriteContext";
+import { FavoriteProvider } from "@/context/favorites/FavoriteProvider";
+import { ToastProvider } from "@/context/toast/ToastProvider";
 import { FoodItem } from "@/types/food";
 import { usePathname } from "next/navigation";
 
@@ -35,20 +36,22 @@ export function AppLayout({
       <FoodItemsProvider foodItems={foodItems}>
         <CartProvider foodItems={foodItems}>
           <FavoriteProvider>
-            <Header showMenuButton={true} onMenuClick={toggleSidebar} />
-            <Toolbar />
+            <ToastProvider>
+              <Header showMenuButton={true} onMenuClick={toggleSidebar} />
+              <Toolbar />
 
-            <Box sx={{ display: isAccount ? "flex" : "block" }}>
-              {isAccount && (
-                <AccountSidebar
-                  mobileOpen={mobileOpen}
-                  onClose={() => setMobileOpen(false)}
-                />
-              )}
-              <Container maxWidth="lg" sx={{ mt: 4 }}>
-                {children}
-              </Container>
-            </Box>
+              <Box sx={{ display: isAccount ? "flex" : "block" }}>
+                {isAccount && (
+                  <AccountSidebar
+                    mobileOpen={mobileOpen}
+                    onClose={() => setMobileOpen(false)}
+                  />
+                )}
+                <Container maxWidth="lg" sx={{ mt: 4 }}>
+                  {children}
+                </Container>
+              </Box>
+            </ToastProvider>
           </FavoriteProvider>
         </CartProvider>
       </FoodItemsProvider>
