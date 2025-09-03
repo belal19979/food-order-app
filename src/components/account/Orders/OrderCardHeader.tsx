@@ -3,9 +3,9 @@ import { ReorderButton } from "@/components/ui";
 import { Order } from "@/types/order";
 import { redirect } from "next/navigation";
 import { OrderStatusChip } from "@/components/ui";
+import { CancelOrderButton } from "./CancelOrderButton";
 
 export const OrderCardHeader = ({ order }: { order: Order }) => {
-  const cancelOrder = () => {};
   return (
     <>
       <Grid size={{ xs: 6, sm: 4 }}>
@@ -16,9 +16,7 @@ export const OrderCardHeader = ({ order }: { order: Order }) => {
       <Grid size={{ xs: 6, sm: 4 }}>
         <OrderStatusChip status={order.status} />
         {order.status === "PENDING" && (
-          <Button onClick={cancelOrder} variant="contained">
-            Cancel
-          </Button>
+          <CancelOrderButton orderId={order.id} status={order.status} />
         )}
       </Grid>
       <Grid
