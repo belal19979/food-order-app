@@ -57,6 +57,7 @@ export function OrderItemRow({ item }: { item: OrderItem }) {
             backgroundColor: "primary.main",
             color: "primary.contrastText",
             transform: "scale(1.05)",
+            border: "none",
           },
         }}
         onClick={() => addToCart(item.food.slug)}

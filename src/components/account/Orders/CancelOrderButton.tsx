@@ -48,7 +48,17 @@ export function CancelOrderButton({ orderId }: { orderId: string }) {
   };
   return (
     <>
-      <Button variant="outlined" size="small" onClick={() => setOpen(true)}>
+      <Button
+        variant="contained"
+        size="medium"
+        sx={{
+          transition: "transform 0.2s, background-color 0.2s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+        onClick={() => setOpen(true)}
+      >
         Cancel order
       </Button>
       <Dialog open={open} onClose={() => !loading && setOpen(false)}>

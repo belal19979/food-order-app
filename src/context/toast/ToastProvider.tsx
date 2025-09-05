@@ -25,7 +25,6 @@ type ToastContextValue = {
 const ToastContext = createContext<ToastContextValue | null>(null);
 
 export function ToastProvider({ children }: { children: ReactNode }) {
-  //ReactNode OR React.ReactNode ?
   const [toast, setToast] = useState<ToastState>({
     open: false,
     severity: "info",

@@ -11,15 +11,12 @@ export const ReorderButton = ({ order }: { order: Order }) => {
 
   return (
     <Button
-      size="medium"
       variant="contained"
-      color="secondary"
       sx={{
         px: 2,
         py: 1,
         transition: "transform 0.2s, background-color 0.2s",
         "&:hover": {
-          backgroundColor: "primary.main",
           transform: "scale(1.05)",
         },
       }}
