@@ -7,17 +7,19 @@ import {
   Box,
 } from "@mui/material";
 
-export const CategoryDropDown = ({
-  categories,
-  category,
-  handleChange,
+export const GenericDropDown = ({
+  options,
+  value,
+  label,
+  onChange,
 }: {
-  categories: string[];
-  category: string;
-  handleChange: (event: SelectChangeEvent) => void;
+  options: string[];
+  value: string;
+  label: string;
+  onChange: (event: SelectChangeEvent) => void;
 }) => {
   return (
-    <Box display="flex" justifyContent="flex-end">
+    <Box display="flex">
       <FormControl
         variant="outlined"
         fullWidth
@@ -25,20 +27,20 @@ export const CategoryDropDown = ({
           width: { xs: "100%", sm: 250, md: 340 },
         }}
       >
-        <InputLabel id="demo-simple-select-label">category</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={category}
-          label="category"
-          onChange={handleChange}
+          value={value}
+          label={label}
+          onChange={onChange}
         >
           <MenuItem value="">
             <em>All</em>
           </MenuItem>
-          {categories.map((cat) => (
-            <MenuItem key={cat} value={cat}>
-              {cat}
+          {options.map((opt) => (
+            <MenuItem key={opt} value={opt}>
+              {opt}
             </MenuItem>
           ))}
         </Select>

@@ -1,5 +1,5 @@
 import { SelectChangeEvent, TextField, Grid, Box } from "@mui/material";
-import { CategoryDropDown } from "./CategoryDropDown";
+import { GenericDropDown } from "./GenericDropDown";
 
 export function FilterBar({
   categories,
@@ -38,10 +38,11 @@ export function FilterBar({
       </Grid>
 
       <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-        <CategoryDropDown
-          categories={categories}
-          category={category}
-          handleChange={handleChange}
+        <GenericDropDown
+          options={categories}
+          value={category}
+          label="Category"
+          onChange={handleChange}
         />
       </Grid>
     </Grid>
