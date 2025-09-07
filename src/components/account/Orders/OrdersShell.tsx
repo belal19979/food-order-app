@@ -2,23 +2,16 @@
 
 import { Order } from "@/types/order";
 import { useEffect, useState } from "react";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 import { OrderCard } from "./OrderCard";
 import { GenericDropDown } from "@/components/Menu/FilterBar/GenericDropDown";
 import { OrderStatus } from "@/generated/prisma";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-// type StatusFilter = OrderStatus | "ALL";
-const STATUS_VALUES = [
-  "PENDING",
-  "PROCESSING",
-  "SHIPPED",
-  "DELIVERED",
-  "CANCELLED",
-];
+const STATUS_VALUES = Object.values(OrderStatus);
 
 export const OrdersShell = ({ orders }: { orders: Order[] }) => {
-  const [orderStatus, setOrderStatus] = useState("");
+  const [orderStatus, setOrderStatus] = useState<OrderStatus | "">("");
   const router = useRouter();
   const pathname = usePathname() as string;
   const searchParams = useSearchParams();
@@ -29,15 +22,11 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
       setOrderStatus("");
       return;
     }
-    const normalized = raw.toUpperCase();
-    if (STATUS_VALUES.includes(normalized)) {
-      setOrderStatus(normalized);
-    } else {
-      setOrderStatus("");
-    }
+    const normalized = raw.toUpperCase() as OrderStatus;
+    setOrderStatus(STATUS_VALUES.includes(normalized) ? normalized : "");
   }, [searchParams]);
 
-  const handleChange = (value: string) => {
+  const handleStatusChange = (value: OrderStatus | "") => {
     setOrderStatus(value);
     const params = new URLSearchParams(searchParams?.toString());
     if (!value) {
@@ -46,7 +35,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
       params.set("status", value.toLowerCase());
     }
     const next = params.toString();
-    router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false }); //
+    router.replace(next ? `${pathname}?${next}` : pathname, { scroll: false });
   };
   const filtered = orders.filter(
     (o) => orderStatus === "" || o.status === orderStatus
@@ -65,7 +54,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
         options={STATUS_VALUES}
         value={orderStatus}
         label="Status"
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={handleStatusChange}
       />
 
       <Stack spacing={4} mt={4}>
