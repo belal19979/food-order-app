@@ -1,7 +1,7 @@
 "use client";
 
 import { Order } from "@/types/order";
-import { Paper, Stack, Grid } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 import { OrderItemRow } from "./OrderItemRow";
 
 import { usePagination } from "@/hooks";
@@ -19,9 +19,9 @@ export function OrderCard({ order }: { order: Order }) {
   return (
     <>
       <Paper key={order.id} variant="outlined" sx={{ px: 2 }}>
-        <Grid container alignItems="center" spacing={2} sx={{ my: 2 }}>
+        <Stack spacing={2} px={2} my={2}>
           <OrderCardHeader order={order} />
-        </Grid>
+        </Stack>
 
         <Stack spacing={2}>
           {itemsToRender.map((item) => (

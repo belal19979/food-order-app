@@ -9,7 +9,7 @@ export const OrderStatusFilter = () => {
     <GenericDropDown
       options={STATUS_VALUES}
       value={status}
-      label="Status"
+      label="filter by Status"
       onChange={handleStatusChange}
     />
   );
