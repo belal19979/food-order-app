@@ -15,13 +15,13 @@ import { DEFAULT_SORT, SORT_KEYS } from "@/utils/sortOrder";
 export const OrdersShell = ({ orders }: { orders: Order[] }) => {
   const { sort, updateSort } = useSort();
   const { status } = useOrderStatus();
-  const { search, updateSearch } = useSearch();
+  const { search, updateSearch, localSearch } = useSearch();
 
   const filteredAndSorted = useMemo(() => {
     let filtered = orders.filter((o) => status === "" || o.status === status);
-    if (search.trim()) {
+    if (localSearch.trim()) {
       filtered = filtered.filter((order) => {
-        const searchItem = search.toLowerCase().trim();
+        const searchItem = localSearch.toLowerCase().trim();
         //check Order Id
         if (order.id.toLowerCase().includes(searchItem)) return true;
         return order.items?.some((item) =>
@@ -31,7 +31,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
     }
     const cmp = getComparison(sort);
     return [...filtered].sort(cmp);
-  }, [orders, status, sort, search]);
+  }, [orders, status, sort, localSearch]);
 
   if (orders.length === 0) {
     return (
@@ -46,7 +46,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
       <Box display="flex" justifyContent="space-between">
         <TextField
           id="outlined-basic"
-          value={search}
+          value={localSearch}
           label="search"
           variant="outlined"
           onChange={(e) => updateSearch(e.target.value)}
@@ -67,7 +67,7 @@ export const OrdersShell = ({ orders }: { orders: Order[] }) => {
           <Typography variant="body1">
             No orders found
             {status && ` with status "${status}"`}
-            {search && ` matching "${search}"`}
+            {search && ` matching "${localSearch}"`}
           </Typography>
         )}
         {filteredAndSorted.map((order) => (
